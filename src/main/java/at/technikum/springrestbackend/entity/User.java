@@ -12,8 +12,8 @@ import java.util.UUID;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    private UUID id = UUID.randomUUID();
 
     @NotBlank (message = "Username cannot be blank!")
     @Size (min = 4, max = 16, message = "Username should be between 4 and 16 characters!")
@@ -25,8 +25,10 @@ public class User {
 
     @NotBlank (message = "This field must be filled out!")
     @Size (min = 8, max = 15, message = "Password must be between 8 and 15 characters!")
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,20}$",
-                message = "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!")
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=" +
+            ".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,20}$",
+                message = "Password must contain at least one uppercase letter, " +
+                        "one lowercase letter, one number, and one special character!")
     private String password;
 
     @ManyToMany

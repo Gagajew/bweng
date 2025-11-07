@@ -11,7 +11,7 @@ COPY src ./src
 RUN mvn package
 
 # Run stage
-FROM openjdk:21-jdk-slim
+FROM eclipse-temurin:21-jre-alpine
 COPY --from=build /app/target/spring-rest-backend-0.0.1.jar /usr/local/lib/app.jar
 
 EXPOSE 8080

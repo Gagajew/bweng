@@ -20,11 +20,11 @@ public class PostDto {
     private String title;
 
     @NotNull
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
     public PostDto(String text){
         this.text = text;
-        this.created_at = new Timestamp(System.currentTimeMillis());
+        this.createdAt = new Timestamp(System.currentTimeMillis());
         this.id = UUID.randomUUID();
     }
 
@@ -48,8 +48,8 @@ public class PostDto {
         this.title = title;
     }
 
-    public Timestamp getCreated_at() {
-        return created_at;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
 

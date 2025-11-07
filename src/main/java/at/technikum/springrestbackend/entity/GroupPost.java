@@ -9,8 +9,8 @@ import java.util.UUID;
 @Entity
 public class GroupPost {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    private UUID id = UUID.randomUUID();
 
     @ManyToOne
     @JoinColumn(name = "groupd_id", nullable = false)

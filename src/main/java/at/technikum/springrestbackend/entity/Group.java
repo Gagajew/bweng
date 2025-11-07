@@ -13,8 +13,8 @@ import java.util.UUID;
 @Entity
 public class Group {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private UUID id;
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    private UUID id = UUID.randomUUID();
 
     @NotNull
     @Size (min = 5, max = 15, message = "Group name must be between 5 and 15 characters!")

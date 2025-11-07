@@ -13,7 +13,7 @@ public class GroupDto {
     private UUID id;
 
     @NotNull
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
     @NotBlank
     @Size(min = 4, max = 40)
@@ -21,7 +21,7 @@ public class GroupDto {
 
     public GroupDto(String name){
         this.id = UUID.randomUUID();
-        this.created_at = new Timestamp(System.currentTimeMillis());
+        this.createdAt = new Timestamp(System.currentTimeMillis());
         this.name = name;
     }
 
@@ -30,8 +30,8 @@ public class GroupDto {
     }
 
 
-    public Timestamp getCreated_at() {
-        return created_at;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
 
