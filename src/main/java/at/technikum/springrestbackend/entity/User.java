@@ -28,8 +28,8 @@ public class User {
     @Size (min = 8, max = 15, message = "Password must be between 8 and 15 characters!")
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=" +
             ".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,20}$",
-                message = "Password must contain at least one uppercase letter, " +
-                        "one lowercase letter, one number, and one special character!")
+            message = "Password must contain at least one uppercase letter, " +
+                    "one lowercase letter, one number, and one special character!")
     private String password;
 
     @ManyToMany
@@ -65,6 +65,10 @@ public class User {
 
     public String getPassword(){
         return password;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
     }
 
 }
