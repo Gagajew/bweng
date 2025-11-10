@@ -14,7 +14,7 @@ public class GroupPost {
     private UUID id = UUID.randomUUID();
 
     @ManyToOne
-    @JoinColumn(name = "groupd_id", nullable = false)
+    @JoinColumn(name = "group_id", nullable = false)
     private Group group;
 
     @ManyToOne

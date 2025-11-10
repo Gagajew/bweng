@@ -51,7 +51,7 @@ public class User {
         return username;
     }
 
-    public void setUsername(){
+    public void setUsername(String username){
         this.username = username;
     }
 
@@ -59,7 +59,7 @@ public class User {
         return email;
     }
 
-    public void setEmail(){
+    public void setEmail(String email){
         this.email = email;
     }
 

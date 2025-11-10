@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      DB_HOST: db
+      DB_HOST: localhost
       DB_DIALECT: mariadb
       DB_PORT: 3306
       DB_NAME: spring

@@ -22,7 +22,7 @@ public class Post {
     @NotBlank
     private String body;
 
-    @NotBlank
+    @NotNull
     @ManyToOne
     private User user;
 
