@@ -13,7 +13,7 @@ public class PostDto {
 
     @NotBlank
     @Size(min = 10, max = 100)
-    private String text;
+    private String body;
 
     @NotBlank
     @Size(min = 10, max = 30)
@@ -22,8 +22,8 @@ public class PostDto {
     @NotNull
     private Timestamp createdAt;
 
-    public PostDto(String text){
-        this.text = text;
+    public PostDto(String body){
+        this.body = body;
         this.createdAt = new Timestamp(System.currentTimeMillis());
         this.id = UUID.randomUUID();
     }
@@ -32,12 +32,12 @@ public class PostDto {
         return id;
     }
 
-    public String getText() {
-        return text;
+    public String getBody() {
+        return body;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public String getTitle() {
