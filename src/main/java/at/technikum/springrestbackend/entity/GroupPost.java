@@ -31,6 +31,22 @@ public class GroupPost {
         return id;
     }
 
+    public Group getGroup(){
+        return group;
+    }
+
+    public void setGroup(Group group){
+        this.group = group;
+    }
+
+    public Post getPost(){
+        return post;
+    }
+
+    public void setPost(Post post){
+        this.post = post;
+    }
+
     public Timestamp getCreatedAt(){
         return createdAt;
     }
