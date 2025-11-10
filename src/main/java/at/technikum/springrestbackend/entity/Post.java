@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Table(name="post")
 public class Post {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)

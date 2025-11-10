@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
+@Table(name="group_post")
 public class GroupPost {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
