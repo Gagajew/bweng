@@ -3,6 +3,7 @@ package at.technikum.springrestbackend.controller;
 import at.technikum.springrestbackend.dto.PostDto;
 import at.technikum.springrestbackend.entity.Post;
 import at.technikum.springrestbackend.service.PostService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,12 +28,12 @@ public class PostController {
     }
 
     @PostMapping
-    public Post createPost(@RequestParam UUID userId, @RequestBody PostDto postDto) {
+    public Post createPost(@RequestParam UUID userId, @Valid @RequestBody PostDto postDto) {
         return postService.createPost(postDto, userId);
     }
 
     @PutMapping("/{id}")
-    public Post updatePost(@PathVariable UUID id, @RequestBody PostDto postDto) {
+    public Post updatePost(@PathVariable UUID id, @Valid @RequestBody PostDto postDto) {
         return postService.updatePost(id, postDto);
     }
 

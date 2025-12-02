@@ -3,6 +3,7 @@ package at.technikum.springrestbackend.controller;
 import at.technikum.springrestbackend.dto.UserDto;
 import at.technikum.springrestbackend.entity.User;
 import at.technikum.springrestbackend.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,12 +28,12 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody UserDto userDto) {
+    public User createUser(@Valid @RequestBody UserDto userDto) {
         return userService.createUser(userDto);
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable UUID id, @RequestBody UserDto userDto) {
+    public User updateUser(@PathVariable UUID id, @Valid @RequestBody UserDto userDto) {
         return userService.updateUser(id, userDto);
     }
 

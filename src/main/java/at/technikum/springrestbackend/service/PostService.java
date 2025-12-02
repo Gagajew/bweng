@@ -5,15 +5,21 @@ import at.technikum.springrestbackend.entity.Post;
 import at.technikum.springrestbackend.entity.User;
 import at.technikum.springrestbackend.repository.PostRepository;
 import at.technikum.springrestbackend.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import at.technikum.springrestbackend.exception.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class PostService {
+
+    private static final Logger log = LoggerFactory.getLogger(PostService.class);
 
     @Autowired
     private PostRepository postRepository;
@@ -26,21 +32,19 @@ public class PostService {
     }
 
     public Post getPostById(UUID id) {
-        Post post = postRepository.findById(id).orElse(null);
-        if (post == null) {
-            System.out.println("Error: Post not found with id: " + id);
-            return null;
-        }
-        return post;
+        return postRepository.findById(id).orElseThrow(() -> {
+            log.warn("Could not find post with id {}", id);
+            return new ResourceNotFoundException("Could not find post with id " + id);
+        });
     }
 
     @Transactional
     public Post createPost(PostDto postDto, UUID userId) {
-        User user = userRepository.findById(userId).orElse(null);
-        if (user == null) {
-            System.out.println("Error: User not found with id: " + userId);
-            return null;
-        }
+        User user = userRepository.findById(userId).orElseThrow(() -> {
+            log.warn("Could not find user with id {}", userId);
+            return new ResourceNotFoundException("Could not find user with id " + userId);
+        });
+
 
         Post post = new Post();
         post.setTitle(postDto.getTitle());
@@ -52,11 +56,7 @@ public class PostService {
 
     @Transactional
     public Post updatePost(UUID id, PostDto postDto) {
-        Post post = postRepository.findById(id).orElse(null);
-        if (post == null) {
-            System.out.println("Error: Post not found with id: " + id);
-            return null;
-        }
+        Post post = getPostById(id);
 
         post.setTitle(postDto.getTitle());
         post.setBody(postDto.getBody());
@@ -68,8 +68,10 @@ public class PostService {
     public void deletePost(UUID id) {
         if (postRepository.existsById(id)) {
             postRepository.deleteById(id);
+            log.info("Deleted post with id {}", id);
         } else {
-            System.out.println("Error: Post not found with id: " + id);
+            log.warn("Post with id {} could not be found", id);
+            throw new ResourceNotFoundException("Could not find post with id " + id);
         }
     }
 }

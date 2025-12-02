@@ -3,6 +3,7 @@ package at.technikum.springrestbackend.controller;
 import at.technikum.springrestbackend.dto.GroupPostDto;
 import at.technikum.springrestbackend.entity.GroupPost;
 import at.technikum.springrestbackend.service.GroupPostService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,12 +28,12 @@ public class GroupPostController {
     }
 
     @PostMapping
-    public GroupPost createGroupPost(@RequestBody GroupPostDto groupPostDto) {
+    public GroupPost createGroupPost(@Valid @RequestBody GroupPostDto groupPostDto) {
         return groupPostService.createGroupPost(groupPostDto);
     }
 
     @PutMapping("/{id}")
-    public GroupPost updateGroupPost(@PathVariable UUID id, @RequestBody GroupPostDto groupPostDto) {
+    public GroupPost updateGroupPost(@PathVariable UUID id, @Valid @RequestBody GroupPostDto groupPostDto) {
         return groupPostService.updateGroupPost(id, groupPostDto);
     }
 

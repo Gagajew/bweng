@@ -3,15 +3,20 @@ package at.technikum.springrestbackend.service;
 import at.technikum.springrestbackend.dto.UserDto;
 import at.technikum.springrestbackend.entity.User;
 import at.technikum.springrestbackend.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import at.technikum.springrestbackend.exception.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class UserService {
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -21,13 +26,12 @@ public class UserService {
     }
 
     public User getUserById(UUID id) {
-        User user = userRepository.findById(id).orElse(null);
-        if (user == null) {
-            System.out.println("Kein user mit id " + id);
-            return null;
-        }
-        return user;
+        return userRepository.findById(id).orElseThrow(() -> {
+            log.warn("User not found with id {}", id);
+            return new ResourceNotFoundException("User not found with id " + id);
+        });
     }
+
 
     @Transactional
     public User createUser(UserDto userDto) {
@@ -41,11 +45,7 @@ public class UserService {
 
     @Transactional
     public User updateUser(UUID id, UserDto userDto) {
-        User user = userRepository.findById(id).orElse(null);
-        if (user == null) {
-            System.out.println("Kein user mit id " + id);
-            return null;
-        }
+        User user = getUserById(id);
 
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
@@ -58,8 +58,10 @@ public class UserService {
     public void deleteUser(UUID id) {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
+            log.info("User with id {} was deleted.", id);
         } else {
-            System.out.println("Kein user mit id  " + id);
+            log.warn("Tried to delete user with id {}", id);
+            throw new ResourceNotFoundException("User not found with id: " + id);
         }
     }
 }
