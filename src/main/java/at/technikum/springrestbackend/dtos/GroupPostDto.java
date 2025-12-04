@@ -1,21 +1,18 @@
-package at.technikum.springrestbackend.dto;
+package at.technikum.springrestbackend.dtos;
 
-import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
 public class GroupPostDto {
-    @NotNull
     private UUID id;
 
-    @NotNull
     private UUID groupId;
 
-    @NotNull
     private UUID postId;
 
+    public GroupPostDto(){}
+
     public GroupPostDto(UUID groupId, UUID postId) {
-        this.id = UUID.randomUUID();
         this.groupId = groupId;
         this.postId = postId;
     }
@@ -23,6 +20,8 @@ public class GroupPostDto {
     public UUID getId() {
         return id;
     }
+
+    public void setId(UUID id) {this.id = id;}
 
     public UUID getGroupId() {
         return groupId;

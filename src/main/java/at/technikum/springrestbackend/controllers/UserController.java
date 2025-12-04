@@ -1,10 +1,8 @@
-package at.technikum.springrestbackend.controller;
+package at.technikum.springrestbackend.controllers;
 
-import at.technikum.springrestbackend.dto.UserDto;
-import at.technikum.springrestbackend.entity.User;
-import at.technikum.springrestbackend.service.UserService;
+import at.technikum.springrestbackend.dtos.UserDto;
+import at.technikum.springrestbackend.services.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,26 +12,29 @@ import java.util.UUID;
 @RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService){
+        this.userService = userService;
+    }
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable UUID id) {
+    public UserDto getUserById(@PathVariable UUID id) {
         return userService.getUserById(id);
     }
 
     @PostMapping
-    public User createUser(@Valid @RequestBody UserDto userDto) {
+    public UserDto createUser(@Valid @RequestBody UserDto userDto) {
         return userService.createUser(userDto);
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable UUID id, @Valid @RequestBody UserDto userDto) {
+    public UserDto updateUser(@PathVariable UUID id, @Valid @RequestBody UserDto userDto) {
         return userService.updateUser(id, userDto);
     }
 

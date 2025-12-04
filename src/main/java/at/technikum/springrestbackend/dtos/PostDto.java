@@ -1,35 +1,39 @@
-package at.technikum.springrestbackend.dto;
+package at.technikum.springrestbackend.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.UUID;
 
 public class PostDto {
-    @NotNull
     private UUID id;
 
     @NotBlank
-    @Size(min = 10, max = 100)
+    @Size(min = 3, max = 100)
     private String body;
 
     @NotBlank
-    @Size(min = 10, max = 30)
+    @Size(min = 3, max = 30)
     private String title;
 
-    @NotNull
     private Timestamp createdAt;
 
-    public PostDto(String body){
+    public PostDto(){}
+
+    public PostDto(String body, String title){
         this.body = body;
-        this.createdAt = new Timestamp(System.currentTimeMillis());
-        this.id = UUID.randomUUID();
+        this.title = title;
     }
 
     public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id){
+        this.id = id;
     }
 
     public String getBody() {
@@ -49,8 +53,11 @@ public class PostDto {
     }
 
     public Timestamp getCreatedAt() {
+
         return createdAt;
     }
 
-
+    public void setCreatedAt(Timestamp createdAt){
+        this.createdAt = createdAt;
+    }
 }

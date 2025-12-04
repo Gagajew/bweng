@@ -1,8 +1,7 @@
-package at.technikum.springrestbackend.controller;
+package at.technikum.springrestbackend.controllers;
 
-import at.technikum.springrestbackend.dto.PostDto;
-import at.technikum.springrestbackend.entity.Post;
-import at.technikum.springrestbackend.service.PostService;
+import at.technikum.springrestbackend.dtos.PostDto;
+import at.technikum.springrestbackend.services.PostService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,22 +17,24 @@ public class PostController {
     private PostService postService;
 
     @GetMapping
-    public List<Post> getAllPosts() {
+    public List<PostDto> getAllPosts() {
+
         return postService.getAllPosts();
     }
 
     @GetMapping("/{id}")
-    public Post getPostById(@PathVariable UUID id) {
+    public PostDto getPostById(@PathVariable UUID id) {
+
         return postService.getPostById(id);
     }
 
     @PostMapping
-    public Post createPost(@RequestParam UUID userId, @Valid @RequestBody PostDto postDto) {
+    public PostDto createPost(@RequestParam UUID userId, @Valid @RequestBody PostDto postDto) {
         return postService.createPost(postDto, userId);
     }
 
     @PutMapping("/{id}")
-    public Post updatePost(@PathVariable UUID id, @Valid @RequestBody PostDto postDto) {
+    public PostDto updatePost(@PathVariable UUID id, @Valid @RequestBody PostDto postDto) {
         return postService.updatePost(id, postDto);
     }
 

@@ -1,4 +1,4 @@
-package at.technikum.springrestbackend.entity;
+package at.technikum.springrestbackend.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -14,8 +14,8 @@ import java.util.UUID;
 @Table(name="groups")
 public class Group {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
-    private UUID id = UUID.randomUUID();
+    @GeneratedValue (strategy = GenerationType.UUID)
+    private UUID id;
 
     @NotNull
     @Size (min = 5, max = 15, message = "Group name must be between 5 and 15 characters!")

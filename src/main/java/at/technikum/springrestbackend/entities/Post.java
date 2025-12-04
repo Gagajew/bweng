@@ -1,4 +1,4 @@
-package at.technikum.springrestbackend.entity;
+package at.technikum.springrestbackend.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -13,8 +13,8 @@ import java.util.UUID;
 @Table(name="post")
 public class Post {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
-    private UUID id = UUID.randomUUID();
+    @GeneratedValue (strategy = GenerationType.UUID)
+    private UUID id;
 
     @NotBlank
     private String title;
@@ -27,12 +27,17 @@ public class Post {
     private User user;
 
     @NotNull
-    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
 
     @OneToMany(mappedBy = "post")
     private List<GroupPost> groupPosts;
 
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+    }
 
     //getters and setters
 
@@ -68,5 +73,7 @@ public class Post {
         return createdAt;
     }
 
-
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
 }

@@ -1,17 +1,30 @@
-package at.technikum.springrestbackend.dto;
+package at.technikum.springrestbackend.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.UUID;
+
 public class GroupDto {
+    private UUID id;
 
     @NotBlank
     @Size(min = 5, max = 15, message = "Group name must be between 5 and 15 characters!")
     private String name;
 
+    public GroupDto(){}
+
     // getters and setters
+    public UUID getId(){
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public String getName() {
+
         return name;
     }
 

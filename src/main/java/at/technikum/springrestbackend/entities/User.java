@@ -1,4 +1,4 @@
-package at.technikum.springrestbackend.entity;
+package at.technikum.springrestbackend.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -13,8 +13,8 @@ import java.util.UUID;
 @Table(name="user")
 public class User {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
-    private UUID id = UUID.randomUUID();
+    @GeneratedValue (strategy = GenerationType.UUID)
+    private UUID id;
 
     @NotBlank (message = "Username cannot be blank!")
     @Size (min = 4, max = 16, message = "Username should be between 4 and 16 characters!")
