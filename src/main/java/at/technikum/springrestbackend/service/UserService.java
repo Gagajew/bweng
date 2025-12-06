@@ -6,6 +6,8 @@ import at.technikum.springrestbackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import at.technikum.springrestbackend.dto.LoginRequestDto;
+
 
 import java.util.List;
 import java.util.UUID;
@@ -62,4 +64,19 @@ public class UserService {
             System.out.println("Kein user mit id  " + id);
         }
     }
+
+    public User login(LoginRequestDto loginRequestDto) {
+        // 1) User per E-Mail suchen
+        User user = userRepository.findByEmail(loginRequestDto.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // 2) Passwort vergleichen (aktuell im Klartext gespeichert)
+        if (!user.getPassword().equals(loginRequestDto.getPassword())) {
+            throw new RuntimeException("Invalid password");
+        }
+
+        // 3) Bei Erfolg: User zurückgeben
+        return user;
+    }
+
 }
