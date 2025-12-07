@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import at.technikum.springrestbackend.dtos.LoginRequestDto;
 
 import at.technikum.springrestbackend.exceptions.ResourceNotFoundException;
 
@@ -68,5 +69,23 @@ public class UserService {
             LOG.warn("Tried to delete user with id {}", id);
             throw new ResourceNotFoundException("User not found with id: " + id);
         }
+    }
+
+    public User login(LoginRequestDto loginRequestDto) {
+        // 1) User per E-Mail suchen
+        User user = userRepository.findByEmail(loginRequestDto.getEmail())
+                .orElseThrow(() -> {
+                    LOG.warn("Login failed: user not found for email {}", loginRequestDto.getEmail());
+                    return new ResourceNotFoundException("User not found");
+                });
+
+        // 2) Passwort vergleichen (noch im Klartext – später mit Hash ersetzen)
+        if (!user.getPassword().equals(loginRequestDto.getPassword())) {
+            LOG.warn("Login failed: invalid password for email {}", loginRequestDto.getEmail());
+            throw new RuntimeException("Invalid password");
+        }
+
+        // 3) Bei Erfolg: User-Entity zurückgeben
+        return user;
     }
 }
