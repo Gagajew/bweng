@@ -3,6 +3,7 @@ package at.technikum.springrestbackend.controllers;
 import at.technikum.springrestbackend.dtos.UserDto;
 import at.technikum.springrestbackend.services.UserService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,26 +21,31 @@ public class UserController {
 
     @GetMapping
     public List<UserDto> getAllUsers() {
+
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
     public UserDto getUserById(@PathVariable UUID id) {
+
         return userService.getUserById(id);
     }
 
     @PostMapping
     public UserDto createUser(@Valid @RequestBody UserDto userDto) {
+
         return userService.createUser(userDto);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entities.User', 'update')")
     public UserDto updateUser(@PathVariable UUID id, @Valid @RequestBody UserDto userDto) {
         return userService.updateUser(id, userDto);
     }
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable UUID id) {
+
         userService.deleteUser(id);
     }
 }
