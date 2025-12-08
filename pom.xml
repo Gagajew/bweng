@@ -49,6 +49,12 @@
             <artifactId>mapstruct</artifactId>
             <version>1.6.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>1.6.3</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
@@ -83,25 +89,36 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <!-- EIN gemeinsamer Compiler-Plugin für Java + Lombok + MapStruct -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <!-- Deine Java-Version -->
-                    <source>22</source>
-                    <target>22</target>
+                    <!-- Java-Version (passend zu deinem Projekt, z.B. 21) -->
+                    <source>21</source>
+                    <target>21</target>
+                    <encoding>UTF-8</encoding>
 
-                    <!-- MapStruct Annotation Processor -->
                     <annotationProcessorPaths>
+                        <!-- MapStruct Processor -->
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
-                            <version>1.5.5.Final</version>
+                            <version>1.6.3</version>
+                        </path>
+
+                        <!-- Lombok Processor -->
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.34</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -120,5 +137,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>

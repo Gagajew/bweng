@@ -1,6 +1,8 @@
 package at.technikum.springrestbackend.dtos;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.util.UUID;
@@ -17,7 +19,13 @@ public class UserDto {
 
     @NotBlank (message = "This field must be filled out!")
     @Size (min = 8, max = 15, message = "Password must be between 8 and 15 characters!")
+    @Column(nullable = false)
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=" +
+            ".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,20}$",
+            message = "Password must contain at least one uppercase letter, " +
+                    "one lowercase letter, one number, and one special character!")
     private String password;
+    
 
     // getters and setters
 

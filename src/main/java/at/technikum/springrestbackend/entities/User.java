@@ -27,13 +27,7 @@ public class User {
     private String email;
 
     @NotBlank (message = "This field must be filled out!")
-    @Size (min = 8, max = 15, message = "Password must be between 8 and 15 characters!")
-    @Column(nullable = false)
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=" +
-            ".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,20}$",
-            message = "Password must contain at least one uppercase letter, " +
-                    "one lowercase letter, one number, and one special character!")
-
+    @Size (max = 100, message = "Password can only have maximum of 100 characters!")
     private String password;
 
     @Column(nullable = false)

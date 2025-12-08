@@ -1,6 +1,6 @@
 package at.technikum.springrestbackend.security;
 
-import at.technikum.springrestbackend.entity.User;
+import at.technikum.springrestbackend.entities.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -11,14 +11,19 @@ public class UserAccessPermission implements AccessPermission{
 
     @Override
     public boolean supports(Authentication authentication, String className){
+        //check if permission is for user entities
         return className.equals(User.class.getName());
     }
 
     @Override
     public boolean hasPermission(Authentication authentication, UUID resourceId){
-        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+        Object principal = authentication.getPrincipal();
 
-        return principal.getId().equals(resourceId);
+        if(principal instanceof UserPrincipal userPrincipal){
+            //only logged in users can update
+            return userPrincipal.getId().equals(resourceId);
+        }
+        return false;
     }
 
 }

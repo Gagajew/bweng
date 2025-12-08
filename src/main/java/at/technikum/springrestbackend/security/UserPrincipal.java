@@ -15,4 +15,8 @@ public class UserPrincipal extends User {
         super(username, password, List.of(new SimpleGrantedAuthority(role)));
         this.id = id;
     }
+
+    public UUID getId(){
+        return id;
+    }
 }

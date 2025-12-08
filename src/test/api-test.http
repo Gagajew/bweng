@@ -4,15 +4,16 @@ GET https://examples.http-client.intellij.net/get
 
 ###
 ### User anlegen
-### User anlegen
 POST http://localhost:8081/api/users
 Content-Type: application/json
 Accept: application/json
 
 {
-  "username": "alex0",
-  "email": "alex0@example.com",
-  "password": "NeuesPass!100"
+  "username": "maria12",
+  "email": "maria12@example.com",
+  "password": "Maria12/90zehn",
+  "role": "ROLE_USER"
+
 }
 ###
 PUT http://localhost:8081/api/users/3dd93cda-93fd-4b6c-840a-7674e15cb3b7
@@ -23,8 +24,19 @@ Content-Type: application/json
 "email": "alex90@example.com",
 "password": "NeuesPass!168"
 }
+
 ###
 GET http://localhost:8081/api/users
+
+
+### GET users mit Basic Auth
+GET http://localhost:8081/api/users
+Authorization: Basic YWxleDA6TmV1ZXNQYXNzITE2OA==
+Accept: application/json
+
+###
+GET http://localhost:8081/api/users
+Authorization: Basic YWxleDA6TmV1ZXNQYXNzITE2OA==
 Accept: application/json
 
 ###

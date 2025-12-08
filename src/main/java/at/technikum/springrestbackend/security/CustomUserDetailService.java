@@ -1,7 +1,7 @@
 package at.technikum.springrestbackend.security;
 
 import at.technikum.springrestbackend.entities.User;
-import at.technikum.springrestbackend.repositories.UserRepository;
+import at.technikum.springrestbackend.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,12 +12,17 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
-        return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(), user.getRole());
+        User user = userService.findByUsername(username);
+
+        return new UserPrincipal(
+                user.getId(),
+                user.getUsername(),
+                user.getPassword(),
+                user.getRole()
+        );
     }
 }
