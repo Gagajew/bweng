@@ -18,28 +18,30 @@ public class PostController {
 
     @GetMapping
     public List<PostDto> getAllPosts() {
-
         return postService.getAllPosts();
     }
 
     @GetMapping("/{id}")
     public PostDto getPostById(@PathVariable UUID id) {
-
         return postService.getPostById(id);
     }
 
     @PostMapping
-    public PostDto createPost(@RequestParam UUID userId, @Valid @RequestBody PostDto postDto) {
+    public PostDto createPost(@RequestParam UUID userId,
+                              @Valid @RequestBody PostDto postDto) {
         return postService.createPost(postDto, userId);
     }
 
     @PutMapping("/{id}")
-    public PostDto updatePost(@PathVariable UUID id, @Valid @RequestBody PostDto postDto) {
-        return postService.updatePost(id, postDto);
+    public PostDto updatePost(@PathVariable UUID id,
+                              @RequestParam UUID userId,
+                              @Valid @RequestBody PostDto postDto) {
+        return postService.updatePost(id, postDto, userId);  // ← genau so
     }
-
+    
     @DeleteMapping("/{id}")
-    public void deletePost(@PathVariable UUID id) {
-        postService.deletePost(id);
+    public void deletePost(@PathVariable UUID id,
+                           @RequestParam UUID userId) {
+        postService.deletePost(id, userId);   // id zuerst, dann userId
     }
 }
