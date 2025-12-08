@@ -3,9 +3,9 @@ package at.technikum.springrestbackend.service;
 import at.technikum.springrestbackend.dto.UserDto;
 import at.technikum.springrestbackend.entity.User;
 import at.technikum.springrestbackend.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,11 +15,23 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
+
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> {
+                    log.warn("User not found with username {}", username);
+                    return new ResourceNotFoundException("User not found with username " + username);
+                });
+    }
 
     public List<User> getAllUsers() {
         return userRepository.findAll();

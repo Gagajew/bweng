@@ -16,7 +16,9 @@ public class AccessPermissionEvaluator implements PermissionEvaluator {
     private final List<AccessPermission> accessPermissions;
 
     @Override
-    public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission){
+    public boolean hasPermission(Authentication authentication,
+                                 Object targetDomainObject,
+                                 Object permission){
         return false;
     }
 

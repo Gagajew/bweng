@@ -37,8 +37,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entity.User', 'update')")
-    public User updateUser(@PathVariable UUID id, @Valid @RequestBody UserDto userDto) {
+    @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entities.User', 'update')")
+    public UserDto updateUser(@PathVariable UUID id, @Valid @RequestBody UserDto userDto) {
         return userService.updateUser(id, userDto);
     }
 
