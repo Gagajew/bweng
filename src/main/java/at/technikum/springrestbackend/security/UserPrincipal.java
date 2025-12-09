@@ -10,14 +10,11 @@ import java.util.UUID;
 @Getter
 public class UserPrincipal extends User {
     private final UUID id;
+    private final String role;
 
     public UserPrincipal(UUID id, String username, String password, String role){
         super(username, password, List.of(new SimpleGrantedAuthority(role)));
         this.id = id;
-    }
-
-    public UUID getId(){
-
-        return id;
+        this.role = role;
     }
 }
