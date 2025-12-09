@@ -27,6 +27,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/error").permitAll()
                         //register without login allowed
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(basic -> {});
