@@ -76,4 +76,6 @@ public class Post {
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
+
+
 }

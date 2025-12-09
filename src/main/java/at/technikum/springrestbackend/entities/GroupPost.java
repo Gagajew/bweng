@@ -1,6 +1,7 @@
 package at.technikum.springrestbackend.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -12,6 +13,11 @@ public class GroupPost {
     @Id
     @GeneratedValue (strategy = GenerationType.UUID)
     private UUID id;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
@@ -49,5 +55,13 @@ public class GroupPost {
     public void setPost(Post post){
 
         this.post = post;
+    }
+
+    public User getUser(){
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

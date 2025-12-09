@@ -7,8 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name="groups")
@@ -21,9 +20,6 @@ public class Group {
     @Size (min = 5, max = 15, message = "Group name must be between 5 and 15 characters!")
     private String name;
 
-    @ManyToMany (mappedBy = "groups")
-    private List<User> members;
-
     @OneToMany(mappedBy = "group")
     private List<GroupPost> groupPosts;
 
@@ -32,6 +28,10 @@ public class Group {
 
     @UpdateTimestamp
     private Timestamp updatedAt;
+
+    @ManyToMany(mappedBy = "groups")
+    private List<User> members = new ArrayList<>();
+
 
     // getters and setters
 
@@ -48,10 +48,12 @@ public class Group {
     }
 
     public List<User> getMembers(){
+
         return members;
     }
 
     public void setMembers(List<User> members){
+
         this.members = members;
     }
 }

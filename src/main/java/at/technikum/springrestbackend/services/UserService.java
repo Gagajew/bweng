@@ -56,6 +56,7 @@ public class UserService {
         if(user.getRole() == null){
             user.setRole("ROLE_USER");
         }
+
         User saved = userRepository.save(user);
         return userMapper.toUserDto(saved);
     }

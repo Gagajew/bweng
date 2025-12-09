@@ -25,7 +25,9 @@ public class UserDto {
             message = "Password must contain at least one uppercase letter, " +
                     "one lowercase letter, one number, and one special character!")
     private String password;
-    
+
+    @Column(nullable = false)
+    private String role;
 
     // getters and setters
 
@@ -65,5 +67,13 @@ public class UserDto {
     public void setPassword(String password){
 
         this.password = password;
+    }
+
+    public String getRole(){
+        return role;
+    }
+
+    public void setRole(String role){
+        this.role = role;
     }
 }

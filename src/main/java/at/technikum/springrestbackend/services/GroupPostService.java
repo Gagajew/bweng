@@ -48,6 +48,17 @@ public class GroupPostService {
         return groupPostMapper.toDto(groupPost);
     }
 
+    public UUID getGroupPostOwnerId(UUID postId){
+        GroupPost post = groupPostRepository.findById(postId).orElseThrow(()->
+                new ResourceNotFoundException("Post not found"));
+        return post.getUser().getId();
+    }
+
+    public boolean isUserMemberOfGroup(UUID groupId, UUID userId){
+        Group group = groupRepository.findById(groupId).orElseThrow(() -> new ResourceNotFoundException("Group not found"));
+        return group.getMembers().stream().anyMatch(user -> user.getId().equals(userId));
+    }
+
     @Transactional
     public GroupPostDto createGroupPost(GroupPostDto groupPostDto) {
         Group group = groupRepository.findById(groupPostDto.getGroupId()).orElseThrow(() -> {

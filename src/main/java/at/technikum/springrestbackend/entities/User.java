@@ -6,8 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name="user")
@@ -33,14 +32,14 @@ public class User {
     @Column(nullable = false)
     private String role;
 
+
     @ManyToMany
     @JoinTable(
             name = "user_groups",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "group_id")
+            joinColumns = @JoinColumn(name = "user_id"),       // FK auf user.id
+            inverseJoinColumns = @JoinColumn(name = "group_id")// FK auf groups.id
     )
-    private List<Group> groups;
-
+    private List<Group> groups = new ArrayList<>();
 
     //getters and setters
 
@@ -88,5 +87,11 @@ public class User {
         this.role = role;
     }
 
+    public List<Group> getGroups(){
+        return groups;
+    }
 
+    public void setGroups(List<Group> groups){
+        this.groups = groups;
+    }
 }

@@ -17,13 +17,12 @@ public class UserAccessPermission implements AccessPermission{
 
     @Override
     public boolean hasPermission(Authentication authentication, UUID resourceId){
-        Object principal = authentication.getPrincipal();
+        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
 
-        if(principal instanceof UserPrincipal userPrincipal){
-            //only logged in users can update
-            return userPrincipal.getId().equals(resourceId);
+        if(principal.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))){
+            return true;
         }
-        return false;
+        return principal.getId().equals(resourceId);
     }
 
 }

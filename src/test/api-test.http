@@ -6,7 +6,6 @@ GET https://examples.http-client.intellij.net/get
 ### User anlegen
 POST http://localhost:8081/api/users
 Content-Type: application/json
-Accept: application/json
 
 {
   "username": "maria12",
@@ -31,8 +30,7 @@ GET http://localhost:8081/api/users
 
 ### GET users mit Basic Auth
 GET http://localhost:8081/api/users
-Authorization: Basic YWxleDA6TmV1ZXNQYXNzITE2OA==
-Accept: application/json
+Authorization: Basic YW5uYTIzOkFubmEyMy85MHplaG4=
 
 ###
 GET http://localhost:8081/api/users
