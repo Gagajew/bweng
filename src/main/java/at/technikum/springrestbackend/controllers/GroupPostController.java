@@ -1,6 +1,7 @@
 package at.technikum.springrestbackend.controllers;
 
 import at.technikum.springrestbackend.dtos.GroupPostDto;
+import at.technikum.springrestbackend.entities.GroupPost;
 import at.technikum.springrestbackend.security.UserPrincipal;
 import at.technikum.springrestbackend.services.GroupPostService;
 import at.technikum.springrestbackend.services.GroupService;
@@ -31,26 +32,21 @@ public class GroupPostController {
 
     @GetMapping("/{id}")
     public GroupPostDto getGroupPostById(@PathVariable UUID id) {
-
         return groupPostService.getGroupPostById(id);
     }
 
-    @PostMapping("(group/{groupId}/posts")
-    @PreAuthorize("@groupService.isUserMemberOfGroup(#groupId, #principal.id)")
-    public GroupPostDto createGroupPost(@Valid @RequestBody GroupPostDto groupPostDto, @AuthenticationPrincipal UserPrincipal principal) {
-        return groupPostService.createGroupPost(groupId, groupPostDto, principal.getId());
+    @PostMapping
+    public GroupPostDto createGroupPost(@Valid @RequestBody GroupPostDto groupPostDto) {
+        return groupPostService.createGroupPost(groupPostDto);
     }
 
-    @PutMapping("/group/{groupId}/posts/{postId}")
-    @PreAuthorize("#principal.id == @groupPostService.getGroupPostOwnerId(#postId)")
-    public GroupPostDto updateGroupPost(@PathVariable UUID id, @Valid @RequestBody GroupPostDto groupPostDto,
-                                        @AuthenticationPrincipal UserPrincipal principal) {
-        return groupPostService.updateGroupPost(postId, groupId, groupPostDto);
+    @PutMapping("/{id}")
+    public GroupPostDto updateGroupPost(@PathVariable UUID id, @Valid @RequestBody GroupPostDto groupPostDto) {
+        return groupPostService.updateGroupPost(id, groupPostDto);
     }
 
     @DeleteMapping("/{id}")
     public void deleteGroupPost(@PathVariable UUID id) {
-
         groupPostService.deleteGroupPost(id);
     }
 }
