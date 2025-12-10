@@ -1,0 +1,122 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+###
+### User anlegen
+POST http://localhost:8081/api/users
+Content-Type: application/json
+
+{
+  "username": "maria12",
+  "email": "maria12@example.com",
+  "password": "Maria12/90zehn",
+  "role": "ROLE_USER"
+
+}
+###
+PUT http://localhost:8081/api/users/3dd93cda-93fd-4b6c-840a-7674e15cb3b7
+Content-Type: application/json
+
+{
+"username": "alex90",
+"email": "alex90@example.com",
+"password": "NeuesPass!168"
+}
+
+###
+GET http://localhost:8081/api/users
+
+
+### GET users mit Basic Auth
+GET http://localhost:8081/api/users
+Authorization: Basic YW5uYTIzOkFubmEyMy85MHplaG4=
+
+###
+GET http://localhost:8081/api/users
+Authorization: Basic YWxleDA6TmV1ZXNQYXNzITE2OA==
+Accept: application/json
+
+###
+GET http://localhost:8081/api/users/3dd93cda-93fd-4b6c-840a-7674e15cb3b7
+
+###
+DELETE http://localhost:8081/api/users/3dd93cda-93fd-4b6c-840a-7674e15cb3b7
+
+
+### Group anlegen
+POST http://localhost:8081/api/groups
+Content-Type: application/json
+
+{
+  "name": "Testgruppe"
+}
+
+
+###
+GET http://localhost:8081/api/groups
+Accept: application/json
+
+###
+GET http://localhost:8081/api/groups/25bd8de4-07f3-4ca0-ac7e-27b531be90c5
+
+
+
+###
+DELETE http://localhost:8081/api/groups/25bd8de4-07f3-4ca0-ac7e-27b531be90c5
+
+
+### Post anlegen
+POST http://localhost:8081/api/posts?userId=550e8400-e29b-41d4-a716-446655440003
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Update",
+  "body": "ORM implemented"
+}
+
+###
+GET http://localhost:8081/api/posts
+Accept: application/json
+
+
+###
+DELETE http://localhost:8081/api/posts/7aac9172-6635-4809-ba9e-a72af163d9b7
+
+###
+PUT http://localhost:8081/api/posts/ade52ab8-40c2-4efc-a84d-86d9c0afd906
+Content-Type: application/json
+
+{
+  "title": "Updated",
+  "body": "ORM implemented"
+}
+
+### GroupPost
+
+POST http://localhost:8081/api/groupposts
+Content-Type: application/json
+
+{
+"groupId": "650e8400-e29b-41d4-a716-446655440003",
+"postId":  "ade52ab8-40c2-4efc-a84d-86d9c0afd906"
+}
+
+
+###
+GET http://localhost:8081/api/groupposts
+Accept: application/json
+
+
+###
+DELETE http://localhost:8081/api/groupposts/90d492d2-4d36-4999-9372-f313235835b6
+
+###
+PUT http://localhost:8081/api/groupposts/b07845d1-e6ce-469c-8655-a004fe535c6e
+Content-Type: application/json
+
+{
+  "groupId": "252ba4c1-9f55-4792-9973-20a8149e2e50",
+  "postId":  "ade52ab8-40c2-4efc-a84d-86d9c0afd906"
+}
