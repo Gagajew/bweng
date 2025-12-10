@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthService {
     private final TokenIssuer tokenIssuer;
-
     private final AuthenticationManager authenticationManager;
 
     public TokenResponseDto authenticate(TokenRequestDto authRequest) {
