@@ -4,49 +4,41 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+@RestControllerAdvice  // Handles exceptions globally for all controllers
 public class GlobalExceptionHandler {
-    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    //logger logs error and warning messages
+    private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    //Bean Validation Fehler (@Valid) -> 400 Bad Request
+    //Handle Bean Validation errorsy -> 400 Bad Request
+    //method handleValidationException responsible for every MethodAgrumentNotValidException-exception
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationException(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
+        //deals with validation-errors and stores in a map (fieldname -> errormessage)
+        Map<String, String> errors = ex.getBindingResult().getFieldErrors().stream() //lists all field-errors
+                .collect(Collectors.toMap(error -> error.getField(), error -> error.getDefaultMessage())); //saves errors in map
 
-        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            errors.put(error.getField(), error.getDefaultMessage());
-        }
-
-        log.warn("Validation failed: {}", errors);
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+        LOG.warn("Validation failed: {}", errors);
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST); //responseEntity with 400 and error map
     }
 
-    // ResourceNotFoundException -> 404 Not Found
+    //Handle ResourceNotFoundException -> 404 Not Found
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleNotFound(ResourceNotFoundException ex) {
-        log.warn("Resource not found: {}", ex.getMessage());
-
-        Map<String, String> body = new HashMap<>();
-        body.put("error", ex.getMessage());
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+        LOG.warn("Resource not found: {}", ex.getMessage());
+        return new ResponseEntity<>(Map.of("error", ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 
-    // Fallback für alle anderen Fehler -> 500 Internal Server Error
+    //Handle all other exceptions -> 500 Internal Server Error
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, String>> handleGeneric(Exception ex) {
-        log.error("Unexpected error", ex);
-
-        Map<String, String> body = new HashMap<>();
-        body.put("error", "Unexpected server error");
-
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(body);
+    public ResponseEntity<Map<String, String>> handleGenericException(Exception ex) {
+        LOG.error("Unexpected error", ex);
+        return new ResponseEntity<>(Map.of("error", "Unexpected server error"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
