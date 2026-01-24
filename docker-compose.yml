@@ -8,18 +8,33 @@ services:
       MARIADB_USER: springuser
       MARIADB_PASSWORD: springpw
       TZ: Europe/Vienna
-    # KEIN command -> Standardstart vom Image verwenden
     ports:
       - "3307:3306"
     volumes:
       - db-data:/var/lib/mysql
     healthcheck:
-      # $$... = im Compose-File escapen, damit es im Container als $... ankommt
-      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u$$MARIADB_USER -p$$MARIADB_PASSWORD --silent"]
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MARIADB_ROOT_PASSWORD --silent"]
       interval: 5s
       timeout: 3s
       retries: 20
-    networks: [app]
+    networks:
+      - app
+
+  minio:
+    image: minio/minio:latest
+    container_name: bweng-minio
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadminpw
+      TZ: Europe/Vienna
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+    networks:
+      - app
 
   app:
     build:
@@ -29,19 +44,30 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      minio:
+        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/spring
       SPRING_DATASOURCE_USERNAME: springuser
       SPRING_DATASOURCE_PASSWORD: springpw
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SERVER_PORT: "8080"  # falls deine App 8081 verwendet
+      SERVER_PORT: "8080"
       TZ: Europe/Vienna
+
+      # wichtig: im Docker-Netzwerk NICHT localhost, sondern Service-Name "minio"
+      MINIO_URL: http://minio
+      MINIO_PORT: "9000"
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadminpw
+      MINIO_BUCKET: files
     ports:
       - "8080:8080"
-    networks: [app]
+    networks:
+      - app
 
 volumes:
   db-data:
+  minio-data:
 
 networks:
   app:
