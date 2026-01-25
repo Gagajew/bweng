@@ -84,10 +84,20 @@ public class PostService {
     @Transactional
     public void deletePost(UUID postId) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Post not found with id " + postId));
+                .orElseThrow(() -> new ResourceNotFoundException("Post not found with id " + postId));
+
+        String oldId = post.getAttachmentId();
 
         postRepository.delete(post);
+
+        // Cleanup: Attachment in MinIO löschen
+        if (oldId != null && !oldId.isBlank()) {
+            try {
+                fileStorage.delete(oldId);
+            } catch (Exception e) {
+                LOG.warn("Could not delete attachment {} for deleted post {}", oldId, postId, e);
+            }
+        }
     }
 
     @Transactional
@@ -110,6 +120,8 @@ public class PostService {
         } else {
             throw new IllegalArgumentException("Only JPG/PNG/WEBP images or PDF files are allowed");
         }
+        // Altes Attachment merken (für Cleanup)
+        String oldId = post.getAttachmentId();
 
         // Upload to MinIO (via FileStorage)
         String externalId = fileStorage.upload(file);
@@ -118,6 +130,16 @@ public class PostService {
         post.setAttachmentContentType(contentType);
 
         Post saved = postRepository.save(post);
+
+        // Cleanup: altes Attachment löschen (falls vorhanden)
+        if (oldId != null && !oldId.isBlank()) {
+            try {
+                fileStorage.delete(oldId);
+            } catch (Exception e) {
+                LOG.warn("Could not delete old attachment {} for post {}", oldId, postId, e);
+            }
+        }
+
         return postMapper.toPostDto(saved);
     }
 
@@ -144,7 +166,13 @@ public class PostService {
             throw new ResourceNotFoundException("Post has no attachment");
         }
 
-        InputStream stream = fileStorage.load(post.getAttachmentId());
+        InputStream stream;
+        try {
+            stream = fileStorage.load(post.getAttachmentId());
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Attachment not found");
+        }
+
 
         String ct = post.getAttachmentContentType();
         if (ct == null || ct.isBlank()) ct = "application/octet-stream";

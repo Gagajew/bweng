@@ -63,14 +63,12 @@ public class PostController {
         postService.deletePost(id);
     }
 
-    @PostMapping("/{id}/attachment")
+    @PostMapping(value = "/{id}/attachment", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("isAuthenticated()")
-    public PostDto uploadAttachment(
-            @PathVariable UUID id,
-            @RequestParam("file") MultipartFile file
-    ) {
+    public PostDto uploadAttachment(@PathVariable UUID id, @RequestParam("file") MultipartFile file) {
         return postService.uploadAttachment(id, file);
     }
+
 
     @GetMapping("/{id}/attachment")
     @PreAuthorize("isAuthenticated()")

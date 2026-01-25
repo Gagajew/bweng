@@ -5,6 +5,7 @@ import at.technikum.springrestbackend.storage.FileStorage;
 import io.minio.GetObjectArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import io.minio.RemoveObjectArgs;
 import java.io.InputStream;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
@@ -23,14 +24,14 @@ public class MinioStorage implements FileStorage {
 
     @Override
     public String upload(MultipartFile file) {
-        try {
-            String externalId = UUID.randomUUID().toString();
+        String externalId = UUID.randomUUID().toString();
 
+        try (InputStream in = file.getInputStream()) {
             minioClient.putObject(
                     PutObjectArgs.builder()
                             .bucket(props.getBucket())
                             .object(externalId)
-                            .stream(file.getInputStream(), file.getSize(), -1)
+                            .stream(in, file.getSize(), -1)
                             .contentType(file.getContentType())
                             .build()
             );
@@ -40,6 +41,7 @@ public class MinioStorage implements FileStorage {
             throw new FileException("Upload to MinIO failed", e);
         }
     }
+
 
     @Override
     public InputStream load(String externalId) {
@@ -54,4 +56,19 @@ public class MinioStorage implements FileStorage {
             throw new FileException("Load from MinIO failed", e);
         }
     }
+
+    @Override
+    public void delete(String externalId) {
+        try {
+            minioClient.removeObject(
+                    RemoveObjectArgs.builder()
+                            .bucket(props.getBucket())
+                            .object(externalId)
+                            .build()
+            );
+        } catch (Exception e) {
+            throw new FileException("Delete from MinIO failed", e);
+        }
+    }
+
 }

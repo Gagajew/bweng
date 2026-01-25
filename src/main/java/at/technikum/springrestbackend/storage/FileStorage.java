@@ -6,4 +6,5 @@ import org.springframework.web.multipart.MultipartFile;
 public interface FileStorage {
     String upload(MultipartFile file);
     InputStream load(String externalId);
+    void delete(String externalId);
 }
