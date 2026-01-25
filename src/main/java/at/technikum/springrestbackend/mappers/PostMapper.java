@@ -12,17 +12,9 @@ public interface PostMapper {
 
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "user", ignore = true)
-    @Mapping(target = "attachmentId", ignore = true)
-    @Mapping(target = "attachmentType", ignore = true)
-    @Mapping(target = "attachmentContentType", ignore = true)
     Post toEntity(PostDto postDto);
 
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "user", ignore = true)
-    @Mapping(target = "attachmentId", ignore = true)
-    @Mapping(target = "attachmentType", ignore = true)
-    @Mapping(target = "attachmentContentType", ignore = true)
     void updateEntityFromDto(PostDto dto, @MappingTarget Post entity);
 }

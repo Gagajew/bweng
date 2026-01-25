@@ -32,16 +32,6 @@ public class User {
     @Column(nullable = false)
     private String role;
 
-    // NEW: Country (ISO-2 code like AT, DE, ...)
-    @NotBlank(message = "Country cannot be blank!")
-    @Pattern(regexp = "^[A-Z]{2}$", message = "Country must be a valid ISO-2 country code (e.g., AT, DE).")
-    @Column(nullable = false, length = 2)
-    private String country;
-
-    // NEW: Profile picture reference (e.g., MinIO object key / externalId)
-    // If null -> frontend/backend can use placeholder
-    @Column(name = "profile_picture_id")
-    private String profilePictureId;
 
     @ManyToMany
     @JoinTable(
@@ -95,22 +85,6 @@ public class User {
     public void setRole(String role){
 
         this.role = role;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getProfilePictureId() {
-        return profilePictureId;
-    }
-
-    public void setProfilePictureId(String profilePictureId) {
-        this.profilePictureId = profilePictureId;
     }
 
     public List<Group> getGroups(){

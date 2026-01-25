@@ -52,19 +52,8 @@ public class UserService {
     @Transactional
     public UserDto createUser(UserDto userDto) {
         User user = userMapper.toEntity(userDto);
-
-        // Country optional normalisieren (falls gewünscht)
-        if (user.getCountry() != null) {
-            user.setCountry(user.getCountry().trim().toUpperCase());
-        }
-
-        // Placeholder profile picture, falls nichts mitgeschickt wurde
-        if (user.getProfilePictureId() == null || user.getProfilePictureId().isBlank()) {
-            user.setProfilePictureId("default-profile"); // Name frei wählen
-        }
-
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        if (user.getRole() == null) {
+        if(user.getRole() == null){
             user.setRole("ROLE_USER");
         }
 

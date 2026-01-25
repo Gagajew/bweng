@@ -17,13 +17,6 @@ public class UserDto {
     @NotBlank
     private String email;
 
-    @NotBlank
-    @Pattern(regexp = "^[A-Z]{2}$", message = "Country must be a valid ISO-2 country code (e.g., AT, DE)")
-    private String country;
-
-    private String profilePictureId;
-
-
     @NotBlank (message = "This field must be filled out!")
     @Size (min = 8, max = 15, message = "Password must be between 8 and 15 characters!")
     @Column(nullable = false)
@@ -54,17 +47,6 @@ public class UserDto {
     public void setUsername(String username){
 
         this.username = username;
-    }
-
-    public String getProfilePictureId() { return profilePictureId; }
-    public void setProfilePictureId(String profilePictureId) { this.profilePictureId = profilePictureId; }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public String getEmail(){

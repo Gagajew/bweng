@@ -15,7 +15,6 @@
     <description>bweng-spring-rest-backend</description>
     <properties>
         <java.version>21</java.version>
-        <minio.version>8.5.13</minio.version>
     </properties>
     <dependencies>
         <dependency>
@@ -61,13 +60,6 @@
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>io.minio</groupId>
-            <artifactId>minio</artifactId>
-            <version>8.5.13</version>
-        </dependency>
-
 
         <dependency>
             <groupId>com.auth0</groupId>
