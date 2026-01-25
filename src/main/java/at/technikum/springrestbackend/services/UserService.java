@@ -1,6 +1,7 @@
 package at.technikum.springrestbackend.services;
 
 import at.technikum.springrestbackend.dtos.UserDto;
+import at.technikum.springrestbackend.dtos.UserUpdateDto;
 import at.technikum.springrestbackend.entities.User;
 import at.technikum.springrestbackend.mappers.UserMapper;
 import at.technikum.springrestbackend.repositories.UserRepository;
@@ -61,21 +62,20 @@ public class UserService {
         return userMapper.toUserDto(saved);
     }
 
-    @Transactional
-    public UserDto updateUser(UUID id, UserDto userDto) {
-        User user = userRepository.findById(id).orElseThrow(() ->{
-            LOG.warn("User with id {} not found ", id);
-            return new ResourceNotFoundException("User not found with id " + id);
-        });
-        userMapper.updateEntityFromDto(userDto, user);
+    public UserDto updateUser(UUID id, UserUpdateDto dto) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if(userDto.getPassword() != null && !userDto.getPassword().isBlank()) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userMapper.updateEntityFromDto(dto, user);
+
+        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+            user.setPassword(passwordEncoder.encode(dto.getPassword()));
         }
 
-        User updated = userRepository.save(user);
-        return userMapper.toUserDto(updated);
+        User saved = userRepository.save(user);
+        return userMapper.toUserDto(saved);
     }
+
 
     @Transactional
     public void deleteUser(UUID id) {

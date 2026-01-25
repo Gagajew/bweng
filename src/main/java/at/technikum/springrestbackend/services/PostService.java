@@ -61,6 +61,10 @@ public class PostService {
         return postMapper.toPostDto(saved);
     }
 
+    public boolean isOwner(UUID postId, UUID userId){
+        return postRepository.existsByIdAndUserId(postId, userId);
+    }
+
     @Transactional
     public PostDto updatePost(UUID id, PostDto postDto) {
         Post post = postRepository.findById(id).orElseThrow(() ->{

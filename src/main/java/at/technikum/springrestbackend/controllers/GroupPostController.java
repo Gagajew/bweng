@@ -35,17 +35,21 @@ public class GroupPostController {
         return groupPostService.getGroupPostById(id);
     }
 
-    @PostMapping
-    public GroupPostDto createGroupPost(@Valid @RequestBody GroupPostDto groupPostDto) {
-        return groupPostService.createGroupPost(groupPostDto);
+    @PostMapping("/{groupId}/posts")
+    public GroupPostDto createGroupPost(@Valid @RequestBody GroupPostDto groupPostDto,
+                                        @AuthenticationPrincipal UserPrincipal userPrincipal,
+                                        @PathVariable ("groupId") UUID groupId) {
+        return groupPostService.createGroupPost(groupPostDto, userPrincipal.getId(), groupId);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public GroupPostDto updateGroupPost(@PathVariable UUID id, @Valid @RequestBody GroupPostDto groupPostDto) {
         return groupPostService.updateGroupPost(id, groupPostDto);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteGroupPost(@PathVariable UUID id) {
         groupPostService.deleteGroupPost(id);
     }

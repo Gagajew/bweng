@@ -1,3 +1,12 @@
+###
+//ADMIN-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYjM4MzM4MS1mMTkwLTRlOTItOGJlMi1lYzEzNjY0YzM3NjkiLCJleHAiOjE3Njk0MzQzNTYsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KaW7FRB9lfftrDV_SNs1HE-aT5-rv_qHNIk85kHeB1U
+//ADMIN-Password: Admin!!1234
+
+//KathiMueller: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNDBhNGI3MC1iMmM3LTQ2OTAtYTAxNy00MzI3Njk4MTllNjciLCJleHAiOjE3Njk0MzY3OTYsInVzZXJuYW1lIjoiS2F0aGlNdWVsbGVyMjkiLCJyb2xlIjoiUk9MRV9VU0VSIn0.16dOk_q3lceHWxZAvfknR-YKH_KZSWyPHgSEp54HIKM
+//Password: KathiMueller.29
+###
+
+
 ### GET request to example server
 GET https://examples.http-client.intellij.net/get
     ?generated-in=IntelliJ IDEA
@@ -6,42 +15,59 @@ GET https://examples.http-client.intellij.net/get
 ### User anlegen
 POST http://localhost:8081/api/users
 Content-Type: application/json
+Accept: application/json
 
 {
-  "username": "maria12",
-  "email": "maria12@example.com",
-  "password": "Maria12/90zehn",
+  "username": "KathiMueller29",
+  "email": "KathiMueller29@example.com",
+  "password": "KathiMueller.29",
   "role": "ROLE_USER"
 
 }
 ###
-PUT http://localhost:8081/api/users/3dd93cda-93fd-4b6c-840a-7674e15cb3b7
+
+
+POST http://localhost:8081/api/auth/login
 Content-Type: application/json
-
-{
-"username": "alex90",
-"email": "alex90@example.com",
-"password": "NeuesPass!168"
-}
-
-###
-GET http://localhost:8081/api/users
-
-
-### GET users mit Basic Auth
-GET http://localhost:8081/api/users
-Authorization: Basic YW5uYTIzOkFubmEyMy85MHplaG4=
-
-###
-GET http://localhost:8081/api/users
-Authorization: Basic YWxleDA6TmV1ZXNQYXNzITE2OA==
 Accept: application/json
 
-###
-GET http://localhost:8081/api/users/3dd93cda-93fd-4b6c-840a-7674e15cb3b7
+{
+ "email": "KathiMueller29@example.com",
+  "password": "KathiMueller.29"
+}
+
+
+####
+
+PUT http://localhost:8081/api/users/f2eea264-39eb-429a-9098-1136ad53f5f7
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYjM4MzM4MS1mMTkwLTRlOTItOGJlMi1lYzEzNjY0YzM3NjkiLCJleHAiOjE3Njk0MzQzNTYsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KaW7FRB9lfftrDV_SNs1HE-aT5-rv_qHNIk85kHeB1U
+
+{
+"email": "anna.maria20@example.com"
+}
+
 
 ###
-DELETE http://localhost:8081/api/users/3dd93cda-93fd-4b6c-840a-7674e15cb3b7
+GET http://localhost:8081/api/users
+
+
+### GET users mit Auth
+GET http://localhost:8081/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYjM4MzM4MS1mMTkwLTRlOTItOGJlMi1lYzEzNjY0YzM3NjkiLCJleHAiOjE3Njk0MzQzNTYsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KaW7FRB9lfftrDV_SNs1HE-aT5-rv_qHNIk85kHeB1U
+Accept: application/json
+
+
+###
+GET http://localhost:8081/api/users/f2eea264-39eb-429a-9098-1136ad53f5f7
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYjM4MzM4MS1mMTkwLTRlOTItOGJlMi1lYzEzNjY0YzM3NjkiLCJleHAiOjE3Njk0MzQzNTYsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KaW7FRB9lfftrDV_SNs1HE-aT5-rv_qHNIk85kHeB1U
+Accept: application/json
+
+
+###
+DELETE http://localhost:8081/api/users/c90b0d16-5ac4-4813-a4a3-41118d4f88e5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYjM4MzM4MS1mMTkwLTRlOTItOGJlMi1lYzEzNjY0YzM3NjkiLCJleHAiOjE3Njk0MzQzNTYsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KaW7FRB9lfftrDV_SNs1HE-aT5-rv_qHNIk85kHeB1U
+Accept: application/json
 
 
 ### Group anlegen
@@ -49,58 +75,61 @@ POST http://localhost:8081/api/groups
 Content-Type: application/json
 
 {
-  "name": "Testgruppe"
+  "name": "Skigruppe"
 }
-
 
 ###
 GET http://localhost:8081/api/groups
 Accept: application/json
 
 ###
-GET http://localhost:8081/api/groups/25bd8de4-07f3-4ca0-ac7e-27b531be90c5
-
-
+GET http://localhost:8081/api/groups/c58a8204-6475-4ddd-9042-ae0c6d44dba4
 
 ###
-DELETE http://localhost:8081/api/groups/25bd8de4-07f3-4ca0-ac7e-27b531be90c5
+DELETE http://localhost:8081/api/groups/3b9334b8-ffab-4bf4-b251-ef4e446d5f45
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYjM4MzM4MS1mMTkwLTRlOTItOGJlMi1lYzEzNjY0YzM3NjkiLCJleHAiOjE3Njk0MzQzNTYsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KaW7FRB9lfftrDV_SNs1HE-aT5-rv_qHNIk85kHeB1U
+Accept: application/json
 
 
 ### Post anlegen
-POST http://localhost:8081/api/posts?userId=550e8400-e29b-41d4-a716-446655440003
+POST http://localhost:8081/api/posts?userId=f40a4b70-b2c7-4690-a017-432769819e67
 Content-Type: application/json
 Accept: application/json
 
 {
-  "title": "Update",
-  "body": "ORM implemented"
+  "title": "Paris",
+  "body": "Eiffel Tower"
 }
 
 ###
 GET http://localhost:8081/api/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYjM4MzM4MS1mMTkwLTRlOTItOGJlMi1lYzEzNjY0YzM3NjkiLCJleHAiOjE3Njk0MzQzNTYsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KaW7FRB9lfftrDV_SNs1HE-aT5-rv_qHNIk85kHeB1U
 Accept: application/json
 
+###
+DELETE http://localhost:8081/api/posts/ef635145-42bd-4e4a-8406-b005650cb486
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNDBhNGI3MC1iMmM3LTQ2OTAtYTAxNy00MzI3Njk4MTllNjciLCJleHAiOjE3Njk0MzY3OTYsInVzZXJuYW1lIjoiS2F0aGlNdWVsbGVyMjkiLCJyb2xlIjoiUk9MRV9VU0VSIn0.16dOk_q3lceHWxZAvfknR-YKH_KZSWyPHgSEp54HIKM
+Accept: application/json
 
 ###
-DELETE http://localhost:8081/api/posts/7aac9172-6635-4809-ba9e-a72af163d9b7
-
-###
-PUT http://localhost:8081/api/posts/ade52ab8-40c2-4efc-a84d-86d9c0afd906
+PUT http://localhost:8081/api/posts/ef635145-42bd-4e4a-8406-b005650cb486
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYjM4MzM4MS1mMTkwLTRlOTItOGJlMi1lYzEzNjY0YzM3NjkiLCJleHAiOjE3Njk0MzQzNTYsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KaW7FRB9lfftrDV_SNs1HE-aT5-rv_qHNIk85kHeB1U
 Content-Type: application/json
 
 {
-  "title": "Updated",
-  "body": "ORM implemented"
+  "title": "PARIS",
+  "body": "Today I went to the Fashion Show!!!"
 }
 
 ### GroupPost
 
-POST http://localhost:8081/api/groupposts
+POST http://localhost:8081/api/groupposts/4fe57b93-d16e-41e1-843d-64c12c5cd61d/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNDBhNGI3MC1iMmM3LTQ2OTAtYTAxNy00MzI3Njk4MTllNjciLCJleHAiOjE3Njk0MzY3OTYsInVzZXJuYW1lIjoiS2F0aGlNdWVsbGVyMjkiLCJyb2xlIjoiUk9MRV9VU0VSIn0.16dOk_q3lceHWxZAvfknR-YKH_KZSWyPHgSEp54HIKM
 Content-Type: application/json
+Accept: application/json
 
 {
-"groupId": "650e8400-e29b-41d4-a716-446655440003",
-"postId":  "ade52ab8-40c2-4efc-a84d-86d9c0afd906"
+"postId":  "0221066c-2c0f-46f6-be30-c055c40b9434"
 }
 
 
@@ -110,10 +139,10 @@ Accept: application/json
 
 
 ###
-DELETE http://localhost:8081/api/groupposts/90d492d2-4d36-4999-9372-f313235835b6
+DELETE http://localhost:8081/api/groupposts/3a82c6de-4af6-47b9-aa2a-5cae1ade914c
 
 ###
-PUT http://localhost:8081/api/groupposts/b07845d1-e6ce-469c-8655-a004fe535c6e
+PUT http://localhost:8081/api/groupposts/3a82c6de-4af6-47b9-aa2a-5cae1ade914c
 Content-Type: application/json
 
 {

@@ -8,14 +8,13 @@ services:
       MARIADB_USER: springuser
       MARIADB_PASSWORD: springpw
       TZ: Europe/Vienna
-    # KEIN command -> Standardstart vom Image verwenden
     ports:
       - "3307:3306"
     volumes:
       - db-data:/var/lib/mysql
     healthcheck:
       # $$... = im Compose-File escapen, damit es im Container als $... ankommt
-      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u$$MARIADB_USER -p$$MARIADB_PASSWORD --silent"]
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -uroot -p$$MARIADB_ROOT_PASSWORD --silent"]
       interval: 5s
       timeout: 3s
       retries: 20

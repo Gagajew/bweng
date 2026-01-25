@@ -28,13 +28,13 @@ public class PostController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public List<PostDto> getAllPosts() {
 
         return postService.getAllPosts();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public PostDto getPostById(@PathVariable UUID id) {
 
         return postService.getPostById(id);
@@ -46,13 +46,13 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or @postService.isOwner(#id, authentication.principal.id)")
     public PostDto updatePost(@PathVariable UUID id, @Valid @RequestBody PostDto postDto) {
         return postService.updatePost(id, postDto);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or @postService.isOwner(#id, authentication.principal.id)")
     public void deletePost(@PathVariable UUID id) {
         postService.deletePost(id);
     }
