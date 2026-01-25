@@ -20,6 +20,10 @@ public class PostDto {
     private String title;
 
     private Timestamp createdAt;
+    private String attachmentId;
+    private String attachmentType;
+    private String attachmentContentType;
+
 
     public PostDto(){}
 
@@ -51,6 +55,18 @@ public class PostDto {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String getAttachmentId() { return attachmentId; }
+
+    public void setAttachmentId(String attachmentId) { this.attachmentId = attachmentId; }
+
+    public String getAttachmentType() { return attachmentType; }
+
+    public void setAttachmentType(String attachmentType) { this.attachmentType = attachmentType; }
+
+    public String getAttachmentContentType() { return attachmentContentType; }
+
+    public void setAttachmentContentType(String attachmentContentType) { this.attachmentContentType = attachmentContentType; }
 
     public Timestamp getCreatedAt() {
 
