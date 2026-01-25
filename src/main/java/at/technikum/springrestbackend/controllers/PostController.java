@@ -8,12 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.multipart.MultipartFile;
-
 
 import java.util.List;
 import java.util.UUID;
@@ -62,33 +56,4 @@ public class PostController {
     public void deletePost(@PathVariable UUID id) {
         postService.deletePost(id);
     }
-
-    @PostMapping("/{id}/attachment")
-    @PreAuthorize("isAuthenticated()")
-    public PostDto uploadAttachment(
-            @PathVariable UUID id,
-            @RequestParam("file") MultipartFile file
-    ) {
-        return postService.uploadAttachment(id, file);
-    }
-
-    @GetMapping("/{id}/attachment")
-    @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<InputStreamResource> downloadAttachment(@PathVariable UUID id) {
-
-        PostService.AttachmentDownload dl = postService.downloadAttachment(id);
-
-        MediaType mediaType;
-        try {
-            mediaType = MediaType.parseMediaType(dl.contentType());
-        } catch (Exception e) {
-            mediaType = MediaType.APPLICATION_OCTET_STREAM;
-        }
-
-        return ResponseEntity.ok()
-                .contentType(mediaType)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + dl.filename() + "\"")
-                .body(new InputStreamResource(dl.stream()));
-    }
-
 }

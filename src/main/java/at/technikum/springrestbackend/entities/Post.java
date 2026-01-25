@@ -39,18 +39,6 @@ public class Post {
         this.createdAt = new Timestamp(System.currentTimeMillis());
     }
 
-    // NEW: File reference in MinIO (object key / externalId)
-    @Column(name = "attachment_id")
-    private String attachmentId;
-
-    // NEW: What kind of file (IMAGE or PDF)
-    @Column(name = "attachment_type", length = 10)
-    private String attachmentType;
-
-    // NEW: Store content type for correct download response header (optional but clean)
-    @Column(name = "attachment_content_type")
-    private String attachmentContentType;
-
     //getters and setters
 
     public UUID getId() {
@@ -88,19 +76,6 @@ public class Post {
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
-
-    public String getAttachmentId() { return attachmentId; }
-
-    public void setAttachmentId(String attachmentId) { this.attachmentId = attachmentId; }
-
-    public String getAttachmentType() { return attachmentType; }
-
-    public void setAttachmentType(String attachmentType) { this.attachmentType = attachmentType; }
-
-    public String getAttachmentContentType() { return attachmentContentType; }
-
-    public void setAttachmentContentType(String attachmentContentType) { this.attachmentContentType = attachmentContentType; }
-
 
 
 }

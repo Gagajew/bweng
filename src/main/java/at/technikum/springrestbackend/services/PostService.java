@@ -11,10 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import at.technikum.springrestbackend.storage.FileStorage;
-import org.springframework.web.multipart.MultipartFile;
-import java.io.InputStream;
-
 
 import at.technikum.springrestbackend.exceptions.ResourceNotFoundException;
 
@@ -31,10 +27,6 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostMapper postMapper;
     private final UserRepository userRepository;
-    private final FileStorage fileStorage;
-    public record AttachmentDownload(InputStream stream, String contentType, String filename) {}
-
-
 
     public List<PostDto> getAllPosts() {
         return postRepository.findAll().stream().map(postMapper::toPostDto).toList();
@@ -89,77 +81,5 @@ public class PostService {
 
         postRepository.delete(post);
     }
-
-    @Transactional
-    public PostDto uploadAttachment(UUID postId, MultipartFile file) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> {
-            LOG.warn("Post not found with id {}", postId);
-            return new ResourceNotFoundException("Post not found with id " + postId);
-        });
-
-        if (file == null || file.isEmpty()) {
-            throw new IllegalArgumentException("File is empty");
-        }
-
-        String contentType = file.getContentType();
-
-        if (isImage(contentType)) {
-            post.setAttachmentType("IMAGE");
-        } else if (isPdf(contentType)) {
-            post.setAttachmentType("PDF");
-        } else {
-            throw new IllegalArgumentException("Only JPG/PNG/WEBP images or PDF files are allowed");
-        }
-
-        // Upload to MinIO (via FileStorage)
-        String externalId = fileStorage.upload(file);
-
-        post.setAttachmentId(externalId);
-        post.setAttachmentContentType(contentType);
-
-        Post saved = postRepository.save(post);
-        return postMapper.toPostDto(saved);
-    }
-
-
-    private boolean isPdf(String ct) {
-        return ct != null && ct.equalsIgnoreCase("application/pdf");
-    }
-
-    private boolean isImage(String ct) {
-        return ct != null && (
-                ct.equalsIgnoreCase("image/jpeg")
-                        || ct.equalsIgnoreCase("image/png")
-                        || ct.equalsIgnoreCase("image/webp")
-        );
-    }
-
-    public AttachmentDownload downloadAttachment(UUID postId) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> {
-            LOG.warn("Post not found with id {}", postId);
-            return new ResourceNotFoundException("Post not found with id " + postId);
-        });
-
-        if (post.getAttachmentId() == null || post.getAttachmentId().isBlank()) {
-            throw new ResourceNotFoundException("Post has no attachment");
-        }
-
-        InputStream stream = fileStorage.load(post.getAttachmentId());
-
-        String ct = post.getAttachmentContentType();
-        if (ct == null || ct.isBlank()) ct = "application/octet-stream";
-
-        String ext = "bin";
-        if ("application/pdf".equalsIgnoreCase(ct)) ext = "pdf";
-        else if ("image/jpeg".equalsIgnoreCase(ct)) ext = "jpg";
-        else if ("image/png".equalsIgnoreCase(ct)) ext = "png";
-        else if ("image/webp".equalsIgnoreCase(ct)) ext = "webp";
-
-        String filename = "post-" + postId + "." + ext;
-
-        return new AttachmentDownload(stream, ct, filename);
-    }
-
-
 }
 
