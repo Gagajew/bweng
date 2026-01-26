@@ -11,15 +11,10 @@ public class MinioConfig {
 
     @Bean
     public MinioClient minioClient(MinioProperties props) {
-        String base = props.getUrl();
-        if (!base.startsWith("http://") && !base.startsWith("https://")) {
-            base = "http://" + base;
-        }
-        String endpoint = base + ":" + props.getPort();
-
         return MinioClient.builder()
-                .endpoint(endpoint)
+                .endpoint(props.getUrl(), props.getPort(), props.isSecure())
                 .credentials(props.getAccessKey(), props.getSecretKey())
                 .build();
     }
+
 }

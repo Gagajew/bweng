@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class MinioProperties {
     private String url;
     private int port;
+    private boolean secure; // <— neu
     private String accessKey;
     private String secretKey;
     private String bucket;
@@ -16,6 +17,9 @@ public class MinioProperties {
     public int getPort() { return port; }
     public void setPort(int port) { this.port = port; }
 
+    public boolean isSecure() { return secure; }
+    public void setSecure(boolean secure) { this.secure = secure; }
+
     public String getAccessKey() { return accessKey; }
     public void setAccessKey(String accessKey) { this.accessKey = accessKey; }
 
@@ -25,3 +29,4 @@ public class MinioProperties {
     public String getBucket() { return bucket; }
     public void setBucket(String bucket) { this.bucket = bucket; }
 }
+
