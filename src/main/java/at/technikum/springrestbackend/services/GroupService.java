@@ -88,11 +88,19 @@ public class GroupService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found: " + userId));
 
+        if(group.getMembers().contains(user)){
+            return groupMapper.toDto(group);
+        }
+
         group.getMembers().add(user);
         user.getGroups().add(group);
 
-        Group saved = groupRepository.save(group);
-        return groupMapper.toDto(saved);
+        //save owner site (join table at user.groups)
+        userRepository.save(user);
+
+        return groupMapper.toDto(group);
+
+
     }
 }
 

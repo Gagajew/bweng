@@ -30,7 +30,7 @@ public class Group {
     private Timestamp updatedAt;
 
     @ManyToMany(mappedBy = "groups")
-    private List<User> members = new ArrayList<>();
+    private Set<User> members = new HashSet<>();
 
 
     // getters and setters
@@ -47,12 +47,12 @@ public class Group {
         this.name = name;
     }
 
-    public List<User> getMembers(){
+    public Set<User> getMembers(){
 
         return members;
     }
 
-    public void setMembers(List<User> members){
+    public void setMembers(Set<User> members){
 
         this.members = members;
     }

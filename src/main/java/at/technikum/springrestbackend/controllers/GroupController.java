@@ -2,7 +2,9 @@ package at.technikum.springrestbackend.controllers;
 
 import at.technikum.springrestbackend.dtos.AddGroupMemberDto;
 import at.technikum.springrestbackend.dtos.GroupDto;
+import at.technikum.springrestbackend.dtos.UserGroupViewDto;
 import at.technikum.springrestbackend.entities.Group;
+import at.technikum.springrestbackend.repositories.GroupRepository;
 import at.technikum.springrestbackend.security.UserPrincipal;
 import at.technikum.springrestbackend.services.GroupService;
 import jakarta.validation.Valid;
@@ -20,9 +22,11 @@ import java.util.UUID;
 public class GroupController {
 
     private final GroupService groupService;
+    private final GroupRepository groupRepository;
 
-    public GroupController( GroupService groupService) {
+    public GroupController(GroupService groupService, GroupRepository groupRepository) {
         this.groupService = groupService;
+        this.groupRepository = groupRepository;
     }
 
     @GetMapping
@@ -47,6 +51,12 @@ public class GroupController {
     public GroupDto addMemberToGroup(@PathVariable("id") UUID groupId,
                                      @RequestBody @NotNull AddGroupMemberDto request) {
         return groupService.addMember(groupId, request.getUserId());
+    }
+
+    @GetMapping("/memberships")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<UserGroupViewDto> memberships(){
+        return groupRepository.getUserGroupOverview();
     }
 
     @PostMapping

@@ -1,5 +1,5 @@
 ###
-//ADMIN-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYjM4MzM4MS1mMTkwLTRlOTItOGJlMi1lYzEzNjY0YzM3NjkiLCJleHAiOjE3Njk0MzQzNTYsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KaW7FRB9lfftrDV_SNs1HE-aT5-rv_qHNIk85kHeB1U
+//ADMIN-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5NjJkZjZhMy01ODMxLTQ5MmYtOWU0Yi02OWYyYTVhNGQwNzMiLCJleHAiOjE3Njk1MTEwODMsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.RgEAzrpqDPXNwGdXkpWMruzYja9o1xx3ZyZwMh5Kivk
 //ADMIN-Password: Admin!!1234
 
 //KathiMueller: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNDBhNGI3MC1iMmM3LTQ2OTAtYTAxNy00MzI3Njk4MTllNjciLCJleHAiOjE3Njk0MzY3OTYsInVzZXJuYW1lIjoiS2F0aGlNdWVsbGVyMjkiLCJyb2xlIjoiUk9MRV9VU0VSIn0.16dOk_q3lceHWxZAvfknR-YKH_KZSWyPHgSEp54HIKM
@@ -18,9 +18,9 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "username": "KathiMueller29",
-  "email": "KathiMueller29@example.com",
-  "password": "KathiMueller.29",
+  "username": "MaxMueller10",
+  "email": "MaxMueller10@example.com",
+  "password": "MaxMueller!/12",
   "role": "ROLE_USER"
 
 }
@@ -32,8 +32,8 @@ Content-Type: application/json
 Accept: application/json
 
 {
- "email": "KathiMueller29@example.com",
-  "password": "KathiMueller.29"
+ "email": "admin@example.com",
+  "password": "Admin!!1234"
 }
 
 
@@ -89,6 +89,19 @@ GET http://localhost:8081/api/groups/c58a8204-6475-4ddd-9042-ae0c6d44dba4
 DELETE http://localhost:8081/api/groups/3b9334b8-ffab-4bf4-b251-ef4e446d5f45
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYjM4MzM4MS1mMTkwLTRlOTItOGJlMi1lYzEzNjY0YzM3NjkiLCJleHAiOjE3Njk0MzQzNTYsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KaW7FRB9lfftrDV_SNs1HE-aT5-rv_qHNIk85kHeB1U
 Accept: application/json
+
+###
+POST http://localhost:8081/api/groups/89e24bd2-113c-490b-9fca-ebe75b0ca33f/members
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5NjJkZjZhMy01ODMxLTQ5MmYtOWU0Yi02OWYyYTVhNGQwNzMiLCJleHAiOjE3Njk1MTEwODMsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.RgEAzrpqDPXNwGdXkpWMruzYja9o1xx3ZyZwMh5Kivk
+Content-Type: application/json
+
+{
+  "userId": "dda7f6fe-24cf-49fa-8425-c413e93170da"
+}
+
+###
+GET http://localhost:8081/api/groups/memberships
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5NjJkZjZhMy01ODMxLTQ5MmYtOWU0Yi02OWYyYTVhNGQwNzMiLCJleHAiOjE3Njk1MTEwODMsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.RgEAzrpqDPXNwGdXkpWMruzYja9o1xx3ZyZwMh5Kivk
 
 
 ### Post anlegen
