@@ -1,6 +1,7 @@
 package at.technikum.springrestbackend.controllers;
 
 import at.technikum.springrestbackend.dtos.PostDto;
+import at.technikum.springrestbackend.entities.User;
 import at.technikum.springrestbackend.security.UserPrincipal;
 import at.technikum.springrestbackend.services.PostService;
 import jakarta.validation.Valid;
@@ -35,25 +36,27 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public PostDto getPostById(@PathVariable UUID id) {
 
         return postService.getPostById(id);
     }
 
     @PostMapping
-    public PostDto createPost(@RequestParam UUID userId, @Valid @RequestBody PostDto postDto) {
-        return postService.createPost(postDto, userId);
+    public PostDto createPost(@AuthenticationPrincipal UserPrincipal userPrincipal, @Valid @RequestBody PostDto postDto) {
+        return postService.createPost(postDto, userPrincipal.getId());
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or @postService.isOwner(#id, authentication.principal.id)")
+    @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entities.Post', 'update')")
     public PostDto updatePost(@PathVariable UUID id, @Valid @RequestBody PostDto postDto) {
         return postService.updatePost(id, postDto);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or @postService.isOwner(#id, authentication.principal.id)")
+    @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entities.Post', 'delete')")
     public void deletePost(@PathVariable UUID id) {
+
         postService.deletePost(id);
     }
 }

@@ -32,6 +32,13 @@ public class Group {
     @ManyToMany(mappedBy = "groups")
     private Set<User> members = new HashSet<>();
 
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by_user_id", nullable = false)
+    private User createdBy;
+
+    @Column(name = "created_by_username", nullable = false)
+    private String createdByUsername;
+
 
     // getters and setters
 
@@ -55,5 +62,21 @@ public class Group {
     public void setMembers(Set<User> members){
 
         this.members = members;
+    }
+
+    public User getCreatedBy(){
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy){
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedByUsername(){
+        return createdByUsername;
+    }
+
+    public void setCreatedByUsername(String createdByUsername){
+        this.createdByUsername = createdByUsername;
     }
 }

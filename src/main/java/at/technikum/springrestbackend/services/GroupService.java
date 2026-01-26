@@ -51,10 +51,19 @@ public class GroupService {
     }
 
     @Transactional
-    public GroupDto createGroup(GroupDto groupDto) {
-            return groupMapper.toDto(
-                    groupRepository.save(
-                            groupMapper.toEntity(groupDto)));
+    public GroupDto createGroup(GroupDto groupDto, UUID creatorId) {
+            Group group = groupMapper.toEntity(groupDto);
+
+            User creator = userRepository.findById(creatorId)
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + creatorId));
+
+            group.setCreatedBy(creator);
+            group.setCreatedByUsername(creator.getUsername());
+
+            group.getMembers().add(creator);
+
+            Group saved = groupRepository.save(group);
+            return groupMapper.toDto(saved);
         }
 
     @Transactional

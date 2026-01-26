@@ -41,6 +41,7 @@ public class GroupController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entities.Group', 'read')")
     public GroupDto getGroupById(@PathVariable UUID id) {
 
         return groupService.getGroupById(id);
@@ -60,13 +61,14 @@ public class GroupController {
     }
 
     @PostMapping
-    public GroupDto createGroup(@Valid @RequestBody GroupDto groupDto) {
+    public GroupDto createGroup(@AuthenticationPrincipal UserPrincipal principal,
+                                @Valid @RequestBody GroupDto groupDto) {
 
-        return groupService.createGroup(groupDto);
+        return groupService.createGroup(groupDto, principal.getId());
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entities.Group', 'update')")
     public GroupDto updateGroup(@PathVariable UUID id, @Valid @RequestBody GroupDto groupDto) {
         return groupService.updateGroup(id, groupDto);
     }

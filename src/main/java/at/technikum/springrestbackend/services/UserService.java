@@ -54,17 +54,17 @@ public class UserService {
     public UserDto createUser(UserDto userDto) {
         User user = userMapper.toEntity(userDto);
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        if(user.getRole() == null){
-            user.setRole("ROLE_USER");
-        }
+
+        user.setRole("ROLE_USER");
 
         User saved = userRepository.save(user);
         return userMapper.toUserDto(saved);
     }
 
+    @Transactional
     public UserDto updateUser(UUID id, UserUpdateDto dto) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User not found with id " + id));
 
         userMapper.updateEntityFromDto(dto, user);
 

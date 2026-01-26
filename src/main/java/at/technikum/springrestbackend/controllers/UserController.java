@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entities.User', 'update')")
+    @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entities.User', 'read')")
     public UserDto getUserById(@PathVariable UUID id) {
 
         return userService.getUserById(id);
@@ -58,13 +58,13 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasPermission(#id, 'at.technikum.springrestbackend.entities.User', 'update')")
-    public UserDto updateUser(@PathVariable UUID id, @RequestBody UserUpdateDto dto) {
+    @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entities.User', 'update')")
+    public UserDto updateUser(@PathVariable UUID id, @Valid @RequestBody UserUpdateDto dto) {
         return userService.updateUser(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entities.User', 'delete')")
     public void deleteUser(@PathVariable UUID id) {
 
         userService.deleteUser(id);

@@ -16,7 +16,7 @@ public class GroupAccessPermission implements AccessPermission {
 
     @Override
     public boolean supports(Authentication authentication, String className) {
-        // Nur für Group-Entity zuständig
+        // only for group entity
         return className.equals(Group.class.getName());
     }
 
@@ -29,10 +29,15 @@ public class GroupAccessPermission implements AccessPermission {
 
         UUID currentUserId = userPrincipal.getId();
 
-        // Gruppe aus DB laden
+        if(userPrincipal.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))){
+            return true;
+        }
+
+        // load group from db
         return groupRepository.findById(resourceId)
                 .map(group -> {
-                    // jedes Mitglied darf updaten
+                    // every member can update
                     if (group.getMembers() != null) {
                         return group.getMembers().stream()
                                 .anyMatch(u -> u.getId().equals(currentUserId));
@@ -40,6 +45,6 @@ public class GroupAccessPermission implements AccessPermission {
 
                     return false;
                 })
-                .orElse(false); // Gruppe nicht gefunden → kein Zugriff
+                .orElse(false); // group not found -> access denied
     }
 }

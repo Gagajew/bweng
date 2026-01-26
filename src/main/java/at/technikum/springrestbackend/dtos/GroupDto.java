@@ -12,6 +12,9 @@ public class GroupDto {
     @Size(min = 5, max = 15, message = "Group name must be between 5 and 15 characters!")
     private String name;
 
+    private UUID createdById;
+    private String createdByUsername;
+
     public GroupDto(){}
 
     // getters and setters
@@ -30,6 +33,20 @@ public class GroupDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public UUID getCreatedById() {
+        return createdById;
+    }
+
+    public void setCreatedById(UUID createdById) {
+        this.createdById = createdById;
+    }
+    public String getCreatedByUsername() {
+        return createdByUsername;
+    }
+    public void setCreatedByUsername(String createdByUsername) {
+        this.createdByUsername = createdByUsername;
     }
 
 }

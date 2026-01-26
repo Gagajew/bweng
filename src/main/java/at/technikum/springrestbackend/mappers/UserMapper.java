@@ -10,6 +10,7 @@ public interface UserMapper {
     @Mapping(target = "password", ignore = true)
     UserDto toUserDto(User user);
 
+    @Mapping(target = "role", ignore = true)
     @Mapping(target = "id", ignore = true)
     User toEntity(UserDto userDto);
 
@@ -18,5 +19,5 @@ public interface UserMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "password", ignore = true)
-    void updateEntityFromDto(UserUpdateDto dto, @MappingTarget User entity);
+    void updateEntityFromDto(UserUpdateDto dto, @MappingTarget User user);
 }
