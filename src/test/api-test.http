@@ -53,7 +53,7 @@ GET http://localhost:8080/api/users
 
 ### GET users mit Auth
 GET http://localhost:8080/api/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmYS1mODg0LTQ4OTctOTBlOC1iMzBjZThiOTBhNmQiLCJleHAiOjE3Njk1Mzk2NzEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.iQrwmgiGVLpEoKJe49VrIjyuS7UJt8mxeWrOTA7cHZw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZjBiZWJmZi1jNGQ2LTQ5NGQtYjg2ZS1kMWQ4YjVlNTdhYjIiLCJleHAiOjE3Njk1NTIyNzIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.-cNjjNO0qdwjM6syt5rCbVJCUo4RuOIFqgxVFQL4WiA
 Accept: application/json
 
 
