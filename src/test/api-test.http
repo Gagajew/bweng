@@ -13,7 +13,7 @@ GET https://examples.http-client.intellij.net/get
 
 ###
 ### User anlegen
-POST http://localhost:8081/api/users
+POST http://localhost:8080/api/users
 Content-Type: application/json
 Accept: application/json
 
@@ -26,7 +26,7 @@ Accept: application/json
 ###
 
 
-POST http://localhost:8081/api/auth/login
+POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 Accept: application/json
 
@@ -38,7 +38,7 @@ Accept: application/json
 
 ####
 
-PUT http://localhost:8081/api/users/e3ec4705-4d1e-41a6-8bf7-9ce3e8b325e4
+PUT http://localhost:8080/api/users/e3ec4705-4d1e-41a6-8bf7-9ce3e8b325e4
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmYS1mODg0LTQ4OTctOTBlOC1iMzBjZThiOTBhNmQiLCJleHAiOjE3Njk1Mzk2NzEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.iQrwmgiGVLpEoKJe49VrIjyuS7UJt8mxeWrOTA7cHZw
 
@@ -48,29 +48,29 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmY
 
 
 ###
-GET http://localhost:8081/api/users
+GET http://localhost:8080/api/users
 
 
 ### GET users mit Auth
-GET http://localhost:8081/api/users
+GET http://localhost:8080/api/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmYS1mODg0LTQ4OTctOTBlOC1iMzBjZThiOTBhNmQiLCJleHAiOjE3Njk1Mzk2NzEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.iQrwmgiGVLpEoKJe49VrIjyuS7UJt8mxeWrOTA7cHZw
 Accept: application/json
 
 
 ###
-GET http://localhost:8081/api/users/e3ec4705-4d1e-41a6-8bf7-9ce3e8b325e4
+GET http://localhost:8080/api/users/e3ec4705-4d1e-41a6-8bf7-9ce3e8b325e4
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmYS1mODg0LTQ4OTctOTBlOC1iMzBjZThiOTBhNmQiLCJleHAiOjE3Njk1Mzk2NzEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.iQrwmgiGVLpEoKJe49VrIjyuS7UJt8mxeWrOTA7cHZw
 Accept: application/json
 
 
 ###
-DELETE http://localhost:8081/api/users/e3ec4705-4d1e-41a6-8bf7-9ce3e8b325e4
+DELETE http://localhost:8080/api/users/e3ec4705-4d1e-41a6-8bf7-9ce3e8b325e4
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmYS1mODg0LTQ4OTctOTBlOC1iMzBjZThiOTBhNmQiLCJleHAiOjE3Njk1Mzk2NzEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.iQrwmgiGVLpEoKJe49VrIjyuS7UJt8mxeWrOTA7cHZw
 Accept: application/json
 
 
 ### Group anlegen
-POST http://localhost:8081/api/groups
+POST http://localhost:8080/api/groups
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmYS1mODg0LTQ4OTctOTBlOC1iMzBjZThiOTBhNmQiLCJleHAiOjE3Njk1Mzk2NzEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.iQrwmgiGVLpEoKJe49VrIjyuS7UJt8mxeWrOTA7cHZw
 Content-Type: application/json
 
@@ -79,20 +79,20 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8081/api/groups
+GET http://localhost:8080/api/groups
 Accept: application/json
 
 ###
-GET http://localhost:8081/api/groups/42c84b93-dbea-4eb0-a594-db580a5a21c8
+GET http://localhost:8080/api/groups/42c84b93-dbea-4eb0-a594-db580a5a21c8
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmYS1mODg0LTQ4OTctOTBlOC1iMzBjZThiOTBhNmQiLCJleHAiOjE3Njk1Mzk2NzEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.iQrwmgiGVLpEoKJe49VrIjyuS7UJt8mxeWrOTA7cHZw
 
 ###
-DELETE http://localhost:8081/api/groups/3b9334b8-ffab-4bf4-b251-ef4e446d5f45
+DELETE http://localhost:8080/api/groups/3b9334b8-ffab-4bf4-b251-ef4e446d5f45
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYjM4MzM4MS1mMTkwLTRlOTItOGJlMi1lYzEzNjY0YzM3NjkiLCJleHAiOjE3Njk0MzQzNTYsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KaW7FRB9lfftrDV_SNs1HE-aT5-rv_qHNIk85kHeB1U
 Accept: application/json
 
 ###
-POST http://localhost:8081/api/groups/89e24bd2-113c-490b-9fca-ebe75b0ca33f/members
+POST http://localhost:8080/api/groups/89e24bd2-113c-490b-9fca-ebe75b0ca33f/members
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5NjJkZjZhMy01ODMxLTQ5MmYtOWU0Yi02OWYyYTVhNGQwNzMiLCJleHAiOjE3Njk1MTEwODMsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.RgEAzrpqDPXNwGdXkpWMruzYja9o1xx3ZyZwMh5Kivk
 Content-Type: application/json
 
@@ -101,12 +101,12 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8081/api/groups/memberships
+GET http://localhost:8080/api/groups/memberships
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5NjJkZjZhMy01ODMxLTQ5MmYtOWU0Yi02OWYyYTVhNGQwNzMiLCJleHAiOjE3Njk1MTEwODMsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.RgEAzrpqDPXNwGdXkpWMruzYja9o1xx3ZyZwMh5Kivk
 
 
 ### Post anlegen
-POST http://localhost:8081/api/posts
+POST http://localhost:8080/api/posts
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmYS1mODg0LTQ4OTctOTBlOC1iMzBjZThiOTBhNmQiLCJleHAiOjE3Njk1Mzk2NzEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.iQrwmgiGVLpEoKJe49VrIjyuS7UJt8mxeWrOTA7cHZw
 Content-Type: application/json
@@ -117,17 +117,17 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8081/api/posts
+GET http://localhost:8080/api/posts
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmYS1mODg0LTQ4OTctOTBlOC1iMzBjZThiOTBhNmQiLCJleHAiOjE3Njk1Mzk2NzEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.iQrwmgiGVLpEoKJe49VrIjyuS7UJt8mxeWrOTA7cHZw
 Accept: application/json
 
 ###
-DELETE http://localhost:8081/api/posts/ef635145-42bd-4e4a-8406-b005650cb486
+DELETE http://localhost:8080/api/posts/ef635145-42bd-4e4a-8406-b005650cb486
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNDBhNGI3MC1iMmM3LTQ2OTAtYTAxNy00MzI3Njk4MTllNjciLCJleHAiOjE3Njk0MzY3OTYsInVzZXJuYW1lIjoiS2F0aGlNdWVsbGVyMjkiLCJyb2xlIjoiUk9MRV9VU0VSIn0.16dOk_q3lceHWxZAvfknR-YKH_KZSWyPHgSEp54HIKM
 Accept: application/json
 
 ###
-PUT http://localhost:8081/api/posts/ef635145-42bd-4e4a-8406-b005650cb486
+PUT http://localhost:8080/api/posts/ef635145-42bd-4e4a-8406-b005650cb486
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYjM4MzM4MS1mMTkwLTRlOTItOGJlMi1lYzEzNjY0YzM3NjkiLCJleHAiOjE3Njk0MzQzNTYsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KaW7FRB9lfftrDV_SNs1HE-aT5-rv_qHNIk85kHeB1U
 Content-Type: application/json
 
@@ -138,7 +138,7 @@ Content-Type: application/json
 
 ### GroupPost
 
-POST http://localhost:8081/api/groupposts/42c84b93-dbea-4eb0-a594-db580a5a21c8/posts
+POST http://localhost:8080/api/groupposts/42c84b93-dbea-4eb0-a594-db580a5a21c8/posts
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmYS1mODg0LTQ4OTctOTBlOC1iMzBjZThiOTBhNmQiLCJleHAiOjE3Njk1Mzk2NzEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.iQrwmgiGVLpEoKJe49VrIjyuS7UJt8mxeWrOTA7cHZw
 Content-Type: application/json
 Accept: application/json
@@ -149,15 +149,15 @@ Accept: application/json
 
 
 ###
-GET http://localhost:8081/api/groupposts
+GET http://localhost:8080/api/groupposts
 Accept: application/json
 
 
 ###
-DELETE http://localhost:8081/api/groupposts/3a82c6de-4af6-47b9-aa2a-5cae1ade914c
+DELETE http://localhost:8080/api/groupposts/3a82c6de-4af6-47b9-aa2a-5cae1ade914c
 
 ###
-PUT http://localhost:8081/api/groupposts/3a82c6de-4af6-47b9-aa2a-5cae1ade914c
+PUT http://localhost:8080/api/groupposts/3a82c6de-4af6-47b9-aa2a-5cae1ade914c
 Content-Type: application/json
 
 {

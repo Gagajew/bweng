@@ -33,7 +33,7 @@ services:
       SPRING_DATASOURCE_USERNAME: springuser
       SPRING_DATASOURCE_PASSWORD: springpw
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SERVER_PORT: "8080"  # falls deine App 8081 verwendet
+      SERVER_PORT: "8080"
       TZ: Europe/Vienna
     ports:
       - "8080:8080"
