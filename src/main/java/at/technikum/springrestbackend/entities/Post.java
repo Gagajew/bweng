@@ -41,6 +41,16 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<GroupPost> groupPosts;
 
+@Column(name = "attachment_id")
+private String attachmentId;
+
+@Column(name = "attachment_content_type")
+private String attachmentContentType;
+
+@Column(name = "attachment_type")
+private String attachmentType;
+
+
 
     @PrePersist
     protected void onCreate() {
@@ -91,5 +101,30 @@ public class Post {
     public void setVisibility(Visibility visibility) {
         this.visibility = visibility;
     }
+
+public String getAttachmentId() {
+    return attachmentId;
+}
+
+public void setAttachmentId(String attachmentId) {
+    this.attachmentId = attachmentId;
+}
+
+public String getAttachmentContentType() {
+    return attachmentContentType;
+}
+
+public void setAttachmentContentType(String attachmentContentType) {
+    this.attachmentContentType = attachmentContentType;
+}
+
+public String getAttachmentType() {
+    return attachmentType;
+}
+
+public void setAttachmentType(String attachmentType) {
+    this.attachmentType = attachmentType;
+}
+
 
 }
