@@ -13,8 +13,10 @@ import at.technikum.springrestbackend.repositories.PostRepository;
 import at.technikum.springrestbackend.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import at.technikum.springrestbackend.exceptions.ResourceNotFoundException;
 
@@ -97,16 +99,28 @@ public class GroupPostService {
     }
 
     @Transactional
-    public GroupPostResponseDto updateGroupPost(UUID id, GroupPostDto groupPostDto) {
+    public GroupPostResponseDto updateGroupPost(UUID id, GroupPostDto groupPostDto, UUID userId) {
         GroupPost groupPost = groupPostRepository.findById(id).orElseThrow(() -> {
             LOG.warn("GroupPost with id {} not found  when updating GroupPost {}", id);
             return new ResourceNotFoundException("GroupPost not found with id: " + id);
         });
 
+        // Verify ownership
+        if (!groupPost.getUser().getId().equals(userId)) {
+            LOG.warn("User {} attempted to update GroupPost {} owned by {}", userId, id, groupPost.getUser().getId());
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You can only update your own group posts");
+        }
+
         Group group = groupRepository.findById(groupPostDto.getGroupId()).orElseThrow(() -> {
             LOG.warn("Group not found with the id {} when updating GroupPost {}", groupPostDto.getGroupId(), id);
             return new ResourceNotFoundException("Group not found with id: " + groupPostDto.getGroupId());
         });
+
+        // Verify user is a member of the new group
+        if (!isUserMemberOfGroup(groupPostDto.getGroupId(), userId)) {
+            LOG.warn("User {} is not a member of group {} when attempting to update GroupPost", userId, groupPostDto.getGroupId());
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You must be a member of the target group");
+        }
 
         Post post = postRepository.findById(groupPostDto.getPostId()).orElseThrow(() -> {
             LOG.warn("Post not found with id {} when updating GroupPost {}", groupPostDto.getPostId(), id);
@@ -121,14 +135,20 @@ public class GroupPostService {
     }
 
     @Transactional
-    public void deleteGroupPost(UUID id) {
-        if (groupPostRepository.existsById(id)) {
-            groupPostRepository.deleteById(id);
-            LOG.info("GroupPost with id {} was deleted.", id);
-        } else {
+    public void deleteGroupPost(UUID id, UUID userId) {
+        GroupPost groupPost = groupPostRepository.findById(id).orElseThrow(() -> {
             LOG.warn("Tried to delete GroupPost with id {}", id);
-            throw new ResourceNotFoundException("GroupPost not found with id: " + id);
+            return new ResourceNotFoundException("GroupPost not found with id: " + id);
+        });
+
+        // Verify ownership
+        if (!groupPost.getUser().getId().equals(userId)) {
+            LOG.warn("User {} attempted to delete GroupPost {} owned by {}", userId, id, groupPost.getUser().getId());
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You can only delete your own group posts");
         }
+
+        groupPostRepository.deleteById(id);
+        LOG.info("GroupPost with id {} was deleted by user {}.", id, userId);
     }
 }
 

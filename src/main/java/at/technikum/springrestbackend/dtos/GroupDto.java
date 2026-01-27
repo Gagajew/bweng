@@ -12,6 +12,12 @@ public class GroupDto {
     @Size(min = 5, max = 15, message = "Group name must be between 5 and 15 characters!")
     private String name;
 
+    @Size(max = 10, message = "Emoji must be at most 10 characters!")
+    private String emoji;
+
+    @Size(max = 500, message = "Description must be at most 500 characters!")
+    private String description;
+
     private UUID createdById;
     private String createdByUsername;
 
@@ -47,6 +53,22 @@ public class GroupDto {
     }
     public void setCreatedByUsername(String createdByUsername) {
         this.createdByUsername = createdByUsername;
+    }
+
+    public String getEmoji() {
+        return emoji;
+    }
+
+    public void setEmoji(String emoji) {
+        this.emoji = emoji;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }

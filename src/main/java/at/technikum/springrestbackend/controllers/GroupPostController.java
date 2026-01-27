@@ -40,15 +40,17 @@ public class GroupPostController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public GroupPostResponseDto updateGroupPost(@PathVariable UUID id, @Valid @RequestBody GroupPostDto groupPostDto) {
-        return groupPostService.updateGroupPost(id, groupPostDto);
+    @PreAuthorize("isAuthenticated()")
+    public GroupPostResponseDto updateGroupPost(@PathVariable UUID id, 
+                                               @Valid @RequestBody GroupPostDto groupPostDto,
+                                               @AuthenticationPrincipal UserPrincipal userPrincipal) {
+        return groupPostService.updateGroupPost(id, groupPostDto, userPrincipal.getId());
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public void deleteGroupPost(@PathVariable UUID id) {
-        groupPostService.deleteGroupPost(id);
+    @PreAuthorize("isAuthenticated()")
+    public void deleteGroupPost(@PathVariable UUID id, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+        groupPostService.deleteGroupPost(id, userPrincipal.getId());
     }
 }
 
