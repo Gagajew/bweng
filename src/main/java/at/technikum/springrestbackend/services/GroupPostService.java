@@ -72,6 +72,12 @@ public class GroupPostService {
             return new ResourceNotFoundException("Group not found with id: " + groupId);
         });
 
+        // Verify that the user is a member of the group
+        if (!isUserMemberOfGroup(groupId, userId)) {
+            LOG.warn("User {} is not a member of group {} when attempting to create GroupPost", userId, groupId);
+            throw new ResourceNotFoundException("User is not a member of this group");
+        }
+
         Post post = postRepository.findById(groupPostDto.getPostId()).orElseThrow(() -> {
             LOG.warn("Post not found with id {} when creating GroupPost", groupPostDto.getPostId());
             return new ResourceNotFoundException("Post not found with id: " + groupPostDto.getPostId());
