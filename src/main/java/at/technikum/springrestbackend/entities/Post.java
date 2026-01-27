@@ -3,7 +3,6 @@ package at.technikum.springrestbackend.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -12,9 +11,18 @@ import java.util.UUID;
 @Entity
 @Table(name="post")
 public class Post {
+
+    public enum Visibility {
+        PUBLIC, PRIVATE
+    }
+
     @Id
     @GeneratedValue (strategy = GenerationType.UUID)
     private UUID id;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Visibility visibility = Visibility.PUBLIC;
 
     @NotBlank
     private String title;
@@ -77,5 +85,11 @@ public class Post {
         this.createdAt = createdAt;
     }
 
+    public Visibility getVisibility() {
+        return visibility;
+    }
+    public void setVisibility(Visibility visibility) {
+        this.visibility = visibility;
+    }
 
 }

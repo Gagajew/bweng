@@ -16,13 +16,25 @@ public class UserAccessPermission implements AccessPermission{
     }
 
     @Override
-    public boolean hasPermission(Authentication authentication, UUID resourceId){
-        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+    public boolean hasPermission(Authentication authentication, UUID resourceId, String action){
 
-        if(principal.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))){
-            return true;
+        //guest
+        if(authentication == null || !(authentication.getPrincipal() instanceof UserPrincipal principal)){
+            return false;
         }
-        return principal.getId().equals(resourceId);
+
+        //admin
+        boolean isAdmin = principal.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        if(isAdmin) return true;
+
+        //user
+        if("read".equalsIgnoreCase(action) ||
+        "update".equalsIgnoreCase(action)
+        ||"delete".equalsIgnoreCase(action)){
+            return principal.getId().equals(resourceId);
+        }
+        return false;
     }
 
 }

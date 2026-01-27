@@ -30,7 +30,7 @@ public class AccessPermissionEvaluator implements PermissionEvaluator {
         boolean hasPermission = false;
         for (AccessPermission accessPermission : accessPermissions){
             if(accessPermission.supports(authentication, targetType)){
-                hasPermission |= accessPermission.hasPermission(authentication, (UUID) targetId);
+                hasPermission |= accessPermission.hasPermission(authentication, (UUID) targetId, permission.toString());
             }
         }
         return hasPermission;

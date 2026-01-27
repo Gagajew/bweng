@@ -1,9 +1,11 @@
 package at.technikum.springrestbackend.services;
 
 import at.technikum.springrestbackend.dtos.PostDto;
+import at.technikum.springrestbackend.entities.GroupPost;
 import at.technikum.springrestbackend.entities.Post;
 import at.technikum.springrestbackend.entities.User;
 import at.technikum.springrestbackend.mappers.PostMapper;
+import at.technikum.springrestbackend.repositories.GroupPostRepository;
 import at.technikum.springrestbackend.repositories.PostRepository;
 import at.technikum.springrestbackend.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,10 +29,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostMapper postMapper;
     private final UserRepository userRepository;
-
-    public List<PostDto> getAllPosts() {
-        return postRepository.findAll().stream().map(postMapper::toPostDto).toList();
-    }
+    private final GroupPostRepository groupPostRepository;
 
     public PostDto getPostById(UUID id) {
          Post post = postRepository.findById(id).orElseThrow(() -> {
@@ -38,6 +37,24 @@ public class PostService {
             return new ResourceNotFoundException("Could not find post with id " + id);
         });
          return postMapper.toPostDto(post);
+    }
+
+    public List<PostDto> getPublicPosts(){
+        return postRepository.findAllByVisibility(Post.Visibility.PUBLIC)
+                .stream().map(postMapper::toPostDto).toList();
+    }
+
+    public List<PostDto> getAllPosts(){
+        return postRepository.findAll()
+                .stream().map(postMapper::toPostDto).toList();
+    }
+
+    public List<PostDto> getPostsForUserGroups(UUID userId){
+        return groupPostRepository.findDistinctByGroup_Members_Id(userId).stream()
+                .map(GroupPost::getPost)
+                .distinct()
+                .map(postMapper::toPostDto)
+                .toList();
     }
 
     public List<PostDto> getPostsForUser(UUID userId) {

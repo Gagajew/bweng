@@ -21,7 +21,7 @@ public class GroupAccessPermission implements AccessPermission {
     }
 
     @Override
-    public boolean hasPermission(Authentication authentication, UUID resourceId) {
+    public boolean hasPermission(Authentication authentication, UUID resourceId, String action) {
         Object principal = authentication.getPrincipal();
         if (!(principal instanceof UserPrincipal userPrincipal)) {
             return false;
@@ -38,12 +38,16 @@ public class GroupAccessPermission implements AccessPermission {
         return groupRepository.findById(resourceId)
                 .map(group -> {
                     // every member can update
-                    if (group.getMembers() != null) {
-                        return group.getMembers().stream()
-                                .anyMatch(u -> u.getId().equals(currentUserId));
+                    boolean isMember = group.getMembers() != null &&
+                            group.getMembers().stream().anyMatch(u -> u.getId().equals(currentUserId));
+
+                    //delete only creator
+                    if("delete".equalsIgnoreCase(action)){
+                        return group.getCreatedBy() != null && group.getCreatedBy().getId().equals(currentUserId);
                     }
 
-                    return false;
+                    //read/update members
+                    return isMember;
                 })
                 .orElse(false); // group not found -> access denied
     }

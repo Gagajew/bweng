@@ -6,5 +6,5 @@ import java.util.UUID;
 
 public interface AccessPermission {
     boolean supports(Authentication authentication, String className);
-    boolean hasPermission(Authentication authentication, UUID resourceID);
+    boolean hasPermission(Authentication authentication, UUID resourceID, String action);
 }

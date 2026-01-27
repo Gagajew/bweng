@@ -28,6 +28,17 @@ public class PostController {
         return postService.getPostsForUser(principal.getId());
     }
 
+    @GetMapping("/group-posts")
+    @PreAuthorize("isAuthenticated()")
+    public List<PostDto> getGroupPosts(@AuthenticationPrincipal UserPrincipal principal){
+        return postService.getPostsForUserGroups(principal.getId());
+    }
+
+    @GetMapping("/public")
+    public List<PostDto> getPublicPosts(){
+        return postService.getPublicPosts();
+    }
+
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public List<PostDto> getAllPosts() {
@@ -36,7 +47,7 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entities.Post', 'read')")
     public PostDto getPostById(@PathVariable UUID id) {
 
         return postService.getPostById(id);
