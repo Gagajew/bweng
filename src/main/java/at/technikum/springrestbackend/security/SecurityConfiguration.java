@@ -44,6 +44,11 @@ public class SecurityConfiguration {
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/posts/public").permitAll()
+
+                        .requestMatchers("/swagger-ui/**","/v3/api-docs/**",
+                                "/swagger-ui.html").permitAll()
+
                         .anyRequest().authenticated()
                 );
         return http.build();
