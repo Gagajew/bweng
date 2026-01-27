@@ -10,6 +10,8 @@ public class GroupPostDto {
 
     private UUID postId;
 
+
+
     public GroupPostDto(){}
 
     public GroupPostDto(UUID groupId, UUID postId) {

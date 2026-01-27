@@ -1,6 +1,7 @@
 package at.technikum.springrestbackend.controllers;
 
 import at.technikum.springrestbackend.dtos.UserDto;
+import at.technikum.springrestbackend.dtos.UserUpdateDto;
 import at.technikum.springrestbackend.security.UserPrincipal;
 import at.technikum.springrestbackend.services.UserService;
 import jakarta.validation.Valid;
@@ -24,7 +25,6 @@ public class UserController {
 
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public List<UserDto> getAllUsers() {
 
         return userService.getAllUsers();
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entities.User', 'update')")
+    @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entities.User', 'read')")
     public UserDto getUserById(@PathVariable UUID id) {
 
         return userService.getUserById(id);
@@ -58,11 +58,12 @@ public class UserController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entities.User', 'update')")
-    public UserDto updateUser(@PathVariable UUID id, @Valid @RequestBody UserDto userDto) {
-        return userService.updateUser(id, userDto);
+    public UserDto updateUser(@PathVariable UUID id, @Valid @RequestBody UserUpdateDto dto) {
+        return userService.updateUser(id, dto);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasPermission(#id, 'at.technikum.springrestbackend.entities.User', 'delete')")
     public void deleteUser(@PathVariable UUID id) {
 
         userService.deleteUser(id);

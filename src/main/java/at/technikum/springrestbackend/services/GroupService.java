@@ -51,10 +51,26 @@ public class GroupService {
     }
 
     @Transactional
-    public GroupDto createGroup(GroupDto groupDto) {
-            return groupMapper.toDto(
-                    groupRepository.save(
-                            groupMapper.toEntity(groupDto)));
+    public GroupDto createGroup(GroupDto groupDto, UUID creatorId) {
+            Group group = groupMapper.toEntity(groupDto);
+
+            User creator = userRepository.findById(creatorId)
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + creatorId));
+
+            group.setCreatedBy(creator);
+            group.setCreatedByUsername(creator.getUsername());
+
+            // Save the group first to get an ID before adding to relationships
+            Group saved = groupRepository.save(group);
+
+            // Update both sides of the bidirectional relationship
+            saved.getMembers().add(creator);
+            creator.getGroups().add(saved);
+
+            // Save the owner side to persist the join table entry
+            userRepository.save(creator);
+
+            return groupMapper.toDto(saved);
         }
 
     @Transactional
@@ -88,11 +104,19 @@ public class GroupService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found: " + userId));
 
+        if(group.getMembers().contains(user)){
+            return groupMapper.toDto(group);
+        }
+
         group.getMembers().add(user);
         user.getGroups().add(group);
 
-        Group saved = groupRepository.save(group);
-        return groupMapper.toDto(saved);
+        //save owner site (join table at user.groups)
+        userRepository.save(user);
+
+        return groupMapper.toDto(group);
+
+
     }
 }
 

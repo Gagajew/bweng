@@ -22,6 +22,11 @@ public class AuthController {
     private final AuthService authService;
     private final JwtIssuer jwtIssuer;
 
+    @GetMapping("/swagger-test")
+    public String swaggerTest() {
+        return "visible";
+    }
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto request) {
         try {

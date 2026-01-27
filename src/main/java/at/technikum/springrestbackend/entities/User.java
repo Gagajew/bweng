@@ -32,14 +32,13 @@ public class User {
     @Column(nullable = false)
     private String role;
 
-
     @ManyToMany
     @JoinTable(
             name = "user_groups",
             joinColumns = @JoinColumn(name = "user_id"),       // FK auf user.id
             inverseJoinColumns = @JoinColumn(name = "group_id")// FK auf groups.id
     )
-    private List<Group> groups = new ArrayList<>();
+    private Set<Group> groups = new HashSet<>();
 
     //getters and setters
 
@@ -87,11 +86,13 @@ public class User {
         this.role = role;
     }
 
-    public List<Group> getGroups(){
+    public Set<Group> getGroups(){
+
         return groups;
     }
 
-    public void setGroups(List<Group> groups){
+    public void setGroups(Set<Group> groups){
+
         this.groups = groups;
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@RestControllerAdvice  // Handles exceptions globally for all controllers
+@RestControllerAdvice
 public class GlobalExceptionHandler {
     //logger logs error and warning messages
     private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandler.class);

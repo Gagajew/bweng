@@ -20,6 +20,12 @@ public class Group {
     @Size (min = 5, max = 15, message = "Group name must be between 5 and 15 characters!")
     private String name;
 
+    @Size(max = 10, message = "Emoji must be at most 10 characters!")
+    private String emoji;
+
+    @Size(max = 500, message = "Description must be at most 500 characters!")
+    private String description;
+
     @OneToMany(mappedBy = "group")
     private List<GroupPost> groupPosts;
 
@@ -30,7 +36,14 @@ public class Group {
     private Timestamp updatedAt;
 
     @ManyToMany(mappedBy = "groups")
-    private List<User> members = new ArrayList<>();
+    private Set<User> members = new HashSet<>();
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by_user_id", nullable = false)
+    private User createdBy;
+
+    @Column(name = "created_by_username", nullable = false)
+    private String createdByUsername;
 
 
     // getters and setters
@@ -47,13 +60,45 @@ public class Group {
         this.name = name;
     }
 
-    public List<User> getMembers(){
+    public Set<User> getMembers(){
 
         return members;
     }
 
-    public void setMembers(List<User> members){
+    public void setMembers(Set<User> members){
 
         this.members = members;
+    }
+
+    public User getCreatedBy(){
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy){
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedByUsername(){
+        return createdByUsername;
+    }
+
+    public void setCreatedByUsername(String createdByUsername){
+        this.createdByUsername = createdByUsername;
+    }
+
+    public String getEmoji() {
+        return emoji;
+    }
+
+    public void setEmoji(String emoji) {
+        this.emoji = emoji;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

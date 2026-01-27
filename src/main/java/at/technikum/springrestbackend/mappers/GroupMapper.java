@@ -8,8 +8,11 @@ import org.mapstruct.MappingTarget;
 
 @Mapper (componentModel = "spring")
 public interface GroupMapper {
+    @Mapping(target = "createdById", source = "createdBy.id")
+    @Mapping(target = "createdByUsername", source = "createdBy.username")
     GroupDto toDto(Group group);
 
+    @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "id", ignore = true)
     Group toEntity(GroupDto groupDto);
 

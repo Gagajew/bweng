@@ -1,10 +1,9 @@
 package at.technikum.springrestbackend.controllers;
 
 import at.technikum.springrestbackend.dtos.GroupPostDto;
-import at.technikum.springrestbackend.entities.GroupPost;
+import at.technikum.springrestbackend.dtos.GroupPostResponseDto;
 import at.technikum.springrestbackend.security.UserPrincipal;
 import at.technikum.springrestbackend.services.GroupPostService;
-import at.technikum.springrestbackend.services.GroupService;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,36 +17,40 @@ import java.util.UUID;
 public class GroupPostController {
 
     private final GroupPostService groupPostService;
-    private final GroupService groupService;
 
-    public GroupPostController(GroupPostService groupPostService, GroupService groupService){
+    public GroupPostController(GroupPostService groupPostService){
         this.groupPostService = groupPostService;
-        this.groupService = groupService;
     }
 
     @GetMapping
-    public List<GroupPostDto> getAllGroupPosts() {
+    public List<GroupPostResponseDto> getAllGroupPosts() {
         return groupPostService.getAllGroupPosts();
     }
 
     @GetMapping("/{id}")
-    public GroupPostDto getGroupPostById(@PathVariable UUID id) {
+    public GroupPostResponseDto getGroupPostById(@PathVariable UUID id) {
         return groupPostService.getGroupPostById(id);
     }
 
-    @PostMapping
-    public GroupPostDto createGroupPost(@Valid @RequestBody GroupPostDto groupPostDto) {
-        return groupPostService.createGroupPost(groupPostDto);
+    @PostMapping("/{groupId}/posts")
+    public GroupPostResponseDto createGroupPost(@Valid @RequestBody GroupPostDto groupPostDto,
+                                        @AuthenticationPrincipal UserPrincipal userPrincipal,
+                                        @PathVariable ("groupId") UUID groupId) {
+        return groupPostService.createGroupPost(groupPostDto, userPrincipal.getId(), groupId);
     }
 
     @PutMapping("/{id}")
-    public GroupPostDto updateGroupPost(@PathVariable UUID id, @Valid @RequestBody GroupPostDto groupPostDto) {
-        return groupPostService.updateGroupPost(id, groupPostDto);
+    @PreAuthorize("isAuthenticated()")
+    public GroupPostResponseDto updateGroupPost(@PathVariable UUID id, 
+                                               @Valid @RequestBody GroupPostDto groupPostDto,
+                                               @AuthenticationPrincipal UserPrincipal userPrincipal) {
+        return groupPostService.updateGroupPost(id, groupPostDto, userPrincipal.getId());
     }
 
     @DeleteMapping("/{id}")
-    public void deleteGroupPost(@PathVariable UUID id) {
-        groupPostService.deleteGroupPost(id);
+    @PreAuthorize("isAuthenticated()")
+    public void deleteGroupPost(@PathVariable UUID id, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+        groupPostService.deleteGroupPost(id, userPrincipal.getId());
     }
 }
 

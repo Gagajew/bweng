@@ -1,10 +1,9 @@
 package at.technikum.springrestbackend.dtos;
 
+import at.technikum.springrestbackend.entities.Post;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -20,6 +19,8 @@ public class PostDto {
     private String title;
 
     private Timestamp createdAt;
+
+    private Post.Visibility visibility;
 
     public PostDto(){}
 
@@ -59,5 +60,12 @@ public class PostDto {
 
     public void setCreatedAt(Timestamp createdAt){
         this.createdAt = createdAt;
+    }
+
+    public Post.Visibility getVisibility() {
+        return visibility;
+    }
+    public void setVisibility(Post.Visibility visibility) {
+        this.visibility = visibility;
     }
 }
