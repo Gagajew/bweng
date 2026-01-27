@@ -60,7 +60,12 @@ public class GroupService {
             group.setCreatedBy(creator);
             group.setCreatedByUsername(creator.getUsername());
 
+            // Update both sides of the bidirectional relationship
             group.getMembers().add(creator);
+            creator.getGroups().add(group);
+
+            // Save the owner side to persist the join table entry
+            userRepository.save(creator);
 
             Group saved = groupRepository.save(group);
             return groupMapper.toDto(saved);

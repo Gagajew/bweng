@@ -13,20 +13,20 @@ GET https://examples.http-client.intellij.net/get
 
 ###
 ### User anlegen
-POST http://localhost:8080/api/users
+POST http://localhost:8081/api/users
 Content-Type: application/json
 Accept: application/json
 
 {
-  "username": "AnneM20",
-  "email": "AnneM20@example.com",
-  "password": "AnneM20.pi"
+  "username": "adminnadmin",
+  "email": "admin3@admin.com",
+  "password": "Juhu123123!"
 
 }
 ###
 
 
-POST http://localhost:8080/api/auth/login
+POST http://localhost:8081/api/auth/login
 Content-Type: application/json
 Accept: application/json
 
@@ -38,17 +38,17 @@ Accept: application/json
 
 ####
 
-PUT http://localhost:8080/api/users/e3ec4705-4d1e-41a6-8bf7-9ce3e8b325e4
+PUT http://localhost:8081/api/users/7f60ea8a-98db-4720-9da0-dd215509ea6d
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmYS1mODg0LTQ4OTctOTBlOC1iMzBjZThiOTBhNmQiLCJleHAiOjE3Njk1Mzk2NzEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.iQrwmgiGVLpEoKJe49VrIjyuS7UJt8mxeWrOTA7cHZw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZjYwZWE4YS05OGRiLTQ3MjAtOWRhMC1kZDIxNTUwOWVhNmQiLCJleHAiOjE3Njk1NTg0NDQsInVzZXJuYW1lIjoiQW5uZU1hc2Zhc2RmMmZmMCIsInJvbGUiOiJST0xFX1VTRVIifQ.-XLKoIF0fDgi_xzwB4Navzy6FNNo25OpF3utgmY2EO0
 
 {
-"email": "AnneM20.1@example.com"
+"email": "admin@admffin.com"
 }
 
 
 ###
-GET http://localhost:8080/api/users
+GET http://localhost:8081/api/users
 
 
 ### GET users mit Auth
@@ -97,7 +97,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5NjJkZjZhM
 Content-Type: application/json
 
 {
-  "userId": "dda7f6fe-24cf-49fa-8425-c413e93170da"
+  "userId": "8ee0e939-e119-4c51-bcd8-3cb479a36162"
 }
 
 ###
@@ -106,7 +106,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5NjJkZjZhM
 
 
 ### Post anlegen
-POST http://localhost:8080/api/posts
+POST http://localhost:8081/api/posts
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDY5ZjNmMy01NDZjLTQxZjAtYjA1Zi0zYjA0ZmU5ZDZlNzUiLCJleHAiOjE3Njk1NTkzMjMsInVzZXJuYW1lIjoiQW5uZU0yMCIsInJvbGUiOiJST0xFX1VTRVIifQ.hFyO_aCUuRVtDpm0md8HMiaHGbqlCD00323Wnbz2LPw
 Content-Type: application/json
@@ -128,13 +128,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNDBhNGI3M
 Accept: application/json
 
 ###
-PUT http://localhost:8080/api/posts/ef635145-42bd-4e4a-8406-b005650cb486
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYjM4MzM4MS1mMTkwLTRlOTItOGJlMi1lYzEzNjY0YzM3NjkiLCJleHAiOjE3Njk0MzQzNTYsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.KaW7FRB9lfftrDV_SNs1HE-aT5-rv_qHNIk85kHeB1U
+PUT http://localhost:8081/api/posts/23a3c290-c0cb-4820-8759-924279835cc3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxZTZlMmE3NS0yZGEzLTQ0ZmEtYTMzYi1lN2JmNTQ0ZTRkZmMiLCJleHAiOjE3Njk1NTk2NTMsInVzZXJuYW1lIjoiYWRtaW5hZG1pbmFkbWluIiwicm9sZSI6IlJPTEVfVVNFUiJ9.ZmfiVyLNQqcbw3rR7nNGpCUoi7MO-XEnCo1gds7fW1M
 Content-Type: application/json
 
 {
   "title": "PARIS",
-  "body": "Today I went to the Fashion Show!!!"
+  "body": "Today I went to the Fashion Show!asdfasf!!"
 }
 
 ### GroupPost
@@ -151,6 +151,12 @@ Accept: application/json
 
 ###
 GET http://localhost:8080/api/groupposts
+Accept: application/json
+
+###
+
+GET http://localhost:8081/api/posts/my-posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxZTZlMmE3NS0yZGEzLTQ0ZmEtYTMzYi1lN2JmNTQ0ZTRkZmMiLCJleHAiOjE3Njk1NTk2NTMsInVzZXJuYW1lIjoiYWRtaW5hZG1pbmFkbWluIiwicm9sZSI6IlJPTEVfVVNFUiJ9.ZmfiVyLNQqcbw3rR7nNGpCUoi7MO-XEnCo1gds7fW1M
 Accept: application/json
 
 
