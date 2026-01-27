@@ -1,14 +1,14 @@
 package at.technikum.springrestbackend.controllers;
 
 import at.technikum.springrestbackend.dtos.PostDto;
-import at.technikum.springrestbackend.entities.User;
 import at.technikum.springrestbackend.security.UserPrincipal;
 import at.technikum.springrestbackend.services.PostService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +25,9 @@ public class PostController {
 
     @GetMapping("/my-posts")
     public List<PostDto> getMyPosts(@AuthenticationPrincipal UserPrincipal principal){
+        if (principal == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authentication required");
+        }
         return postService.getPostsForUser(principal.getId());
     }
 
@@ -44,6 +47,9 @@ public class PostController {
 
     @PostMapping
     public PostDto createPost(@AuthenticationPrincipal UserPrincipal userPrincipal, @Valid @RequestBody PostDto postDto) {
+        if (userPrincipal == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authentication required");
+        }
         return postService.createPost(postDto, userPrincipal.getId());
     }
 

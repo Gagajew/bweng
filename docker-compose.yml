@@ -37,6 +37,7 @@ services:
       TZ: Europe/Vienna
     ports:
       - "8081:8080"
+
     networks: [app]
 
 volumes:
