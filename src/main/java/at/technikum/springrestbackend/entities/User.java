@@ -25,6 +25,10 @@ public class User {
     @Column (unique = true, nullable = false)
     private String email;
 
+    @Column(name = "country")
+    private String country;
+
+
     @NotBlank (message = "This field must be filled out!")
     @Size (max = 100, message = "Password can only have maximum of 100 characters!")
     private String password;
@@ -95,4 +99,13 @@ public class User {
 
         this.groups = groups;
     }
+
+public String getCountry() {
+    return country;
+}
+
+public void setCountry(String country) {
+    this.country = country;
+}
+
 }
