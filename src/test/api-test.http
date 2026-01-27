@@ -31,19 +31,19 @@ Content-Type: application/json
 Accept: application/json
 
 {
- "email": "AnneM20@example.com",
-  "password": "AnneM20.pi"
+ "email": "admin3@admin.com",
+  "password": "Juhu123123!"
 }
 
 
 ####
 
-PUT http://localhost:8081/api/users/7f60ea8a-98db-4720-9da0-dd215509ea6d
+PUT http://localhost:8081/api/users/3a526379-65dc-44c7-aac5-ccc8f448d2ac
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZjYwZWE4YS05OGRiLTQ3MjAtOWRhMC1kZDIxNTUwOWVhNmQiLCJleHAiOjE3Njk1NTg0NDQsInVzZXJuYW1lIjoiQW5uZU1hc2Zhc2RmMmZmMCIsInJvbGUiOiJST0xFX1VTRVIifQ.-XLKoIF0fDgi_xzwB4Navzy6FNNo25OpF3utgmY2EO0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzYTUyNjM3OS02NWRjLTQ0YzctYWFjNS1jY2M4ZjQ0OGQyYWMiLCJleHAiOjE3Njk2MDA3MTUsInVzZXJuYW1lIjoiYWRtaW5uYWRtaW4iLCJyb2xlIjoiUk9MRV9VU0VSIn0.UVRFVLP2MjWY8ozOD_nkALNeDtzAyh_HY4aGt38RTZQ
 
 {
-"email": "admin@admffin.com"
+"email": "admin3@admin.com"
 }
 
 
@@ -52,8 +52,8 @@ GET http://localhost:8081/api/users
 
 
 ### GET users mit Auth
-GET http://localhost:8080/api/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzRiMTgwZC1mYjM3LTQzOWItOTIxOC1lYmVjMjExZDUzNDMiLCJleHAiOjE3Njk1NTQwMDQsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.5GQZ6NmZ4boAfnNsmxqC-f-1fSgJ834KSuhLsnN-u6s
+GET http://localhost:8081/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzYTUyNjM3OS02NWRjLTQ0YzctYWFjNS1jY2M4ZjQ0OGQyYWMiLCJleHAiOjE3Njk2MDA3MTUsInVzZXJuYW1lIjoiYWRtaW5uYWRtaW4iLCJyb2xlIjoiUk9MRV9VU0VSIn0.UVRFVLP2MjWY8ozOD_nkALNeDtzAyh_HY4aGt38RTZQ
 Accept: application/json
 
 
