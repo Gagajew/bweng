@@ -31,8 +31,8 @@ Content-Type: application/json
 Accept: application/json
 
 {
- "email": "admin@example.com",
-  "password": "Admin!!1234"
+ "email": "AnneM20@example.com",
+  "password": "AnneM20.pi"
 }
 
 
@@ -53,13 +53,13 @@ GET http://localhost:8080/api/users
 
 ### GET users mit Auth
 GET http://localhost:8080/api/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkZjBiZWJmZi1jNGQ2LTQ5NGQtYjg2ZS1kMWQ4YjVlNTdhYjIiLCJleHAiOjE3Njk1NTIyNzIsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.-cNjjNO0qdwjM6syt5rCbVJCUo4RuOIFqgxVFQL4WiA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzRiMTgwZC1mYjM3LTQzOWItOTIxOC1lYmVjMjExZDUzNDMiLCJleHAiOjE3Njk1NTQwMDQsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.5GQZ6NmZ4boAfnNsmxqC-f-1fSgJ834KSuhLsnN-u6s
 Accept: application/json
 
 
 ###
-GET http://localhost:8080/api/users/e3ec4705-4d1e-41a6-8bf7-9ce3e8b325e4
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmYS1mODg0LTQ4OTctOTBlOC1iMzBjZThiOTBhNmQiLCJleHAiOjE3Njk1Mzk2NzEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.iQrwmgiGVLpEoKJe49VrIjyuS7UJt8mxeWrOTA7cHZw
+GET http://localhost:8080/api/users/f43f8fd3-4ba9-4efe-962f-9167f3de8c14
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNDNmOGZkMy00YmE5LTRlZmUtOTYyZi05MTY3ZjNkZThjMTQiLCJleHAiOjE3Njk1NTU1NjgsInVzZXJuYW1lIjoiQW5uZU0yMCIsInJvbGUiOiJST0xFX1VTRVIifQ.Dx1wZ0I_bC2pvcfBoNVIwpzZp-Gv66ixVkblIEUdL64
 Accept: application/json
 
 
@@ -71,7 +71,7 @@ Accept: application/json
 
 ### Group anlegen
 POST http://localhost:8080/api/groups
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmYS1mODg0LTQ4OTctOTBlOC1iMzBjZThiOTBhNmQiLCJleHAiOjE3Njk1Mzk2NzEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.iQrwmgiGVLpEoKJe49VrIjyuS7UJt8mxeWrOTA7cHZw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5ODNjNjUxZi05ZTdjLTQxMTctODhjMy05NGQ3OWM0MjM4NDYiLCJleHAiOjE3Njk1NTc2NjQsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.E5gW8wVMU2NAYNTS7BnPirah12rsQXrzr-ZonzsY0xI
 Content-Type: application/json
 
 {
@@ -108,17 +108,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5NjJkZjZhM
 ### Post anlegen
 POST http://localhost:8080/api/posts
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmYS1mODg0LTQ4OTctOTBlOC1iMzBjZThiOTBhNmQiLCJleHAiOjE3Njk1Mzk2NzEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.iQrwmgiGVLpEoKJe49VrIjyuS7UJt8mxeWrOTA7cHZw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDY5ZjNmMy01NDZjLTQxZjAtYjA1Zi0zYjA0ZmU5ZDZlNzUiLCJleHAiOjE3Njk1NTkzMjMsInVzZXJuYW1lIjoiQW5uZU0yMCIsInJvbGUiOiJST0xFX1VTRVIifQ.hFyO_aCUuRVtDpm0md8HMiaHGbqlCD00323Wnbz2LPw
 Content-Type: application/json
 
 {
-  "title": "Paris",
-  "body": "Eiffel Tower"
+  "title": "Hallo",
+  "body": "Welt"
 }
 
 ###
+###
 GET http://localhost:8080/api/posts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMmJkYmFmYS1mODg0LTQ4OTctOTBlOC1iMzBjZThiOTBhNmQiLCJleHAiOjE3Njk1Mzk2NzEsInVzZXJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.iQrwmgiGVLpEoKJe49VrIjyuS7UJt8mxeWrOTA7cHZw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDY5ZjNmMy01NDZjLTQxZjAtYjA1Zi0zYjA0ZmU5ZDZlNzUiLCJleHAiOjE3Njk1NTkzMjMsInVzZXJuYW1lIjoiQW5uZU0yMCIsInJvbGUiOiJST0xFX1VTRVIifQ.hFyO_aCUuRVtDpm0md8HMiaHGbqlCD00323Wnbz2LPw
 Accept: application/json
 
 ###
