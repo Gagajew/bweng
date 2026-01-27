@@ -1,6 +1,7 @@
 package at.technikum.springrestbackend.services;
 
 import at.technikum.springrestbackend.dtos.GroupPostDto;
+import at.technikum.springrestbackend.dtos.GroupPostResponseDto;
 import at.technikum.springrestbackend.entities.Group;
 import at.technikum.springrestbackend.entities.GroupPost;
 import at.technikum.springrestbackend.entities.Post;
@@ -39,17 +40,17 @@ public class GroupPostService {
         this.userRepository = userRepository;
     }
 
-    public List<GroupPostDto> getAllGroupPosts() {
-        return groupPostRepository.findAll().stream().map(groupPostMapper::toDto).toList();
+    public List<GroupPostResponseDto> getAllGroupPosts() {
+        return groupPostRepository.findAll().stream().map(groupPostMapper::toResponseDto).toList();
     }
 
-    public GroupPostDto getGroupPostById(UUID id) {
+    public GroupPostResponseDto getGroupPostById(UUID id) {
         GroupPost groupPost = groupPostRepository.findById(id).orElseThrow(() -> {
             LOG.warn("GroupPost not found with id {}", id);
             return new ResourceNotFoundException("GroupPost not found with id" + id);
         });
 
-        return groupPostMapper.toDto(groupPost);
+        return groupPostMapper.toResponseDto(groupPost);
     }
 
     public UUID getGroupPostOwnerId(UUID postId){
@@ -64,7 +65,7 @@ public class GroupPostService {
     }
 
     @Transactional
-    public GroupPostDto createGroupPost(GroupPostDto groupPostDto,
+    public GroupPostResponseDto createGroupPost(GroupPostDto groupPostDto,
                                         UUID userId,
                                         UUID groupId) {
         Group group = groupRepository.findById(groupId).orElseThrow(() -> {
@@ -92,11 +93,11 @@ public class GroupPostService {
         groupPost.setPost(post);
 
         GroupPost saved = groupPostRepository.save(groupPost);
-        return groupPostMapper.toDto(saved);
+        return groupPostMapper.toResponseDto(saved);
     }
 
     @Transactional
-    public GroupPostDto updateGroupPost(UUID id, GroupPostDto groupPostDto) {
+    public GroupPostResponseDto updateGroupPost(UUID id, GroupPostDto groupPostDto) {
         GroupPost groupPost = groupPostRepository.findById(id).orElseThrow(() -> {
             LOG.warn("GroupPost with id {} not found  when updating GroupPost {}", id);
             return new ResourceNotFoundException("GroupPost not found with id: " + id);
@@ -116,7 +117,7 @@ public class GroupPostService {
         groupPost.setPost(post);
 
         GroupPost updated = groupPostRepository.save(groupPost);
-        return groupPostMapper.toDto(updated);
+        return groupPostMapper.toResponseDto(updated);
     }
 
     @Transactional
